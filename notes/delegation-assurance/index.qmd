@@ -19,6 +19,7 @@ format:
     include-in-header:
       text: |
         #show link: set text(fill: rgb("#8a3515"))
+        #set document(title: "Assuring one delegation: What greenhouse-gas verification can lend to AI agents", author: "Will Brooke")
 ---
 
 ::: {.note-meta}
