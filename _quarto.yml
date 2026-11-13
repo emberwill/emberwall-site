@@ -1,0 +1,38 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Ember Wall"
+  description: "Working notes by Will Brooke on assurance, delegation and the instruments regulators already have."
+  site-url: "https://emberwall.net"
+  page-navigation: false
+  open-graph: true
+  twitter-card: true
+  navbar:
+    left:
+      - text: "Notes"
+        href: index.qmd
+      - text: "Tests"
+        href: cases/index.qmd
+      - text: "About"
+        href: about.qmd
+  page-footer:
+    left: "© 2026 Will Brooke · Views are my own, not my employer's."
+    right: "Working notes, versioned and dated."
+
+format:
+  html:
+    theme:
+      light: [flatly, theme.scss]
+      dark: [darkly, theme.scss, theme-dark.scss]
+    toc: true
+    toc-depth: 2
+    toc-title: "On this page"
+    smooth-scroll: true
+    link-external-newwindow: true
+    date-format: "D MMMM YYYY"
+    title-block-banner: false
+
+filters:
+  - pdf-links.lua

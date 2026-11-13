@@ -1,0 +1,12 @@
+---
+title: "About"
+toc: false
+---
+
+I’m Will Brooke. I work on greenhouse-gas reporting and verification as a regulator. That work often comes down to a practical question: what evidence would let someone outside the project judge what was claimed?
+
+This site is where I ask a related question about AI agents. If I give an agent authority to do a job on someone else’s behalf, what do I need to establish before it acts? Afterward, what can the person affected find out about what happened, and if something doesn't go as planned, who can put it right?
+
+The working note, [Assuring one delegation](notes/delegation-assurance/index.qmd), sets out the proposal, and the [Tests](cases/index.qmd) page summarizes the small experiments behind it.
+
+I write here in a personal capacity. If you’ve run into a case that would put these ideas to the test, I’d like to hear about it: [will@emberwall.net](mailto:will@emberwall.net)

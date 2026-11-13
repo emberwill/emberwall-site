@@ -1,0 +1,6 @@
+---
+title: "Page not found"
+toc: false
+---
+
+That page does not exist, or it has moved. The [list of notes](/index.qmd) is the best place to start.

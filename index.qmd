@@ -1,0 +1,16 @@
+---
+title: "Working notes"
+listing:
+  contents: notes
+  sort: "date desc"
+  type: default
+  fields: [date, title, subtitle, description]
+  date-format: "D MMMM YYYY"
+  feed: true
+toc: false
+page-layout: article
+---
+
+I work on carbon markets and greenhouse-gas measurement, reporting and verification. These notes ask what those instruments can do for other problems, starting with delegating authority to AI agents.
+
+Each note is dated and versioned. A new version replaces the old one at the same address and says what changed. The [tests](cases/index.qmd) page describes the small experiments the notes draw on. To get new notes and versions by email, subscribe to [Ember Notes](https://buttondown.email/Willember).

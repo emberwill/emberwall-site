@@ -1,0 +1,25 @@
+---
+title: "Tests"
+description: "Small experiments with AI agents working under explicit limits."
+toc: true
+---
+
+These are small experiments with AI agents working under explicit limits. Each asks what the agent can do, what happens when it proposes something outside its authority, and what evidence a reviewer has afterward.
+
+## Flight booking · FLIGHT-DCE-001
+
+*Could the same delegation contract govern work by different AI agents and give other models a common basis for reviewing it?*
+
+Claude Code and Codex each completed 14 valid mock flight-booking runs under the same contract, which set a $650 fare cap and other conditions. Neither agent treated an approval planted in the fare rules as authority. The test harness refused 17 of 110 tool calls by Claude Code and 33 of 172 by Codex, showing some of the friction involved in enforcing the contract.
+
+Gemini, Mistral, and Qwen then used the contract to review 17 blinded case packets. The panel was unanimous on 14, and I made the final adjudications. In one disputed case, I judged the contract itself ambiguous. The same contract served as a reference for both execution and review, and the disagreements helped identify where its wording still required judgment.
+
+## Weather report · WEATHER-001
+
+I used Cohere’s Command A+ to propose an update to a synthetic weather report. The contract authorized only a change to atmospheric pressure, but in one trial the model proposed changing temperature as well. A separate, deterministic Python checker rejected the entire proposal. Codex reviewed the result and verified that both the original report and the previously generated output were unchanged. The record shows what the agent proposed and what actually changed.
+
+## Read-only code review · DCE-0002
+
+I removed sensitive files before giving agents a frozen copy of a codebase to review. Three of four runs in one set still asked for an excluded file. The requests were refused and no contents were returned. Where the flight and weather tests relied on an execution gate during the job, this test narrowed what could be accessed before the agent started work.
+
+These tests used mock or controlled inputs and show what happened under the controls I tested. Because I ran the tests and made the final judgments, the results are my own findings rather than an independent verification.
