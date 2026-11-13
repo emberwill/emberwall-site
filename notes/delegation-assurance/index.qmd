@@ -5,6 +5,7 @@ author: "Will Brooke"
 date: 2026-11-13
 version: "0.1"
 description: "A working note on how to validate one grant of authority to an AI agent, verify how it was used, and decide whose claims matter."
+format-links: false
 format:
   html: default
   typst:
@@ -23,8 +24,8 @@ format:
 ---
 
 ::: {.note-meta}
-Working note · version 0.1 · 13 November 2026
-[ · [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24200916.svg)](https://doi.org/10.5281/zenodo.24200916)]{.content-visible when-format="html"}
+Working note · version 0.1 · 13 November 2026 [· [PDF](assuring-one-delegation.pdf)]{.content-visible when-format="html"}
+[[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24200916.svg)](https://doi.org/10.5281/zenodo.24200916)]{.content-visible when-format="html"}
 [ · DOI: [10.5281/zenodo.24200916](https://doi.org/10.5281/zenodo.24200916)]{.content-visible unless-format="html"}
 :::
 
