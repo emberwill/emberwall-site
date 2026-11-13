@@ -3,7 +3,7 @@ project:
   output-dir: _site
 
 website:
-  title: "Ember Wall"
+  title: "Emberwall"
   description: "Working notes by Will Brooke on assurance, delegation and the instruments regulators already have."
   site-url: "https://emberwall.net"
   page-navigation: false

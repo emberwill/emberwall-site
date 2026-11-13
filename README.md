@@ -1,4 +1,4 @@
-# Ember Wall: site source
+# Emberwall: site source
 
 Source for [emberwall.net](https://emberwall.net), working notes by Will Brooke. The site is built with [Quarto](https://quarto.org) from plain Markdown (`.qmd`) files and published by GitHub Pages.
 
