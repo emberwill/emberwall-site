@@ -23,10 +23,8 @@ format:
 
 ::: {.note-meta}
 Working note · version 0.1 · 13 November 2026
-<!-- DOI: after reserving a DOI on Zenodo, delete this comment line and the closing one below, and replace XXXXXXX in all four places.
-[ · [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX)]{.content-visible when-format="html"}
-[ · DOI: [10.5281/zenodo.XXXXXXX](https://doi.org/10.5281/zenodo.XXXXXXX)]{.content-visible unless-format="html"}
--->
+[ · [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24200916.svg)](https://doi.org/10.5281/zenodo.24200916)]{.content-visible when-format="html"}
+[ · DOI: [10.5281/zenodo.24200916](https://doi.org/10.5281/zenodo.24200916)]{.content-visible unless-format="html"}
 :::
 
 ::: {.lead}
