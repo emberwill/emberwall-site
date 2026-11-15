@@ -1,0 +1,476 @@
+---
+title: "Delegation Contract"
+subtitle: "A generic template for delegating one job to an agent"
+description: "Generic delegation contract template, version 0.1."
+toc: true
+---
+
+::: {.note-meta}
+Template · version 0.1
+:::
+
+I wrote the first version of this contract for the flight-booking test on the [Tests](/cases/index.qmd) page. I then made it into a template for other jobs. Replace the text in square brackets with the details of the job you’re delegating. The [Reading](/reading.qmd) page explains the ideas behind the contract.
+
+## 1. Principal and Delegatee
+
+Principal: \[person or entity delegating authority\]
+
+Delegatee: \[agent, agent instance, person, service, or other actor receiving the delegation\]
+
+The Delegatee acts only within the authority created by this contract.
+
+The Principal remains the source of delegated authority and retains any authority not expressly delegated.
+
+## 2. Mandate
+
+The Delegatee is authorized to undertake the following job:
+
+Mandate:\
+\[describe the work to be accomplished\]
+
+Purpose:\
+\[describe why the work is being delegated and what outcome the Principal is trying to achieve\]
+
+The Mandate defines the work.
+
+The Purpose guides judgment where more than one permissible course of action exists.
+
+The Purpose does not enlarge the Delegatee’s authority.
+
+## 3. Preconditions
+
+The delegation becomes active only when all required preconditions are satisfied.
+
+Preconditions may include:
+
+- required facts or instructions are available;
+- required resources are accessible;
+- required identities have been authenticated;
+- necessary capabilities have been issued;
+- required approvals have been obtained;
+- the delegation has not expired or been revoked.
+
+Preconditions:\
+\[insert task-specific preconditions\]
+
+If a required precondition is not satisfied, the Delegatee must not perform an action that depends on it.
+
+## 4. Authority
+
+The Delegatee may perform only those activities expressly authorized by this contract or by a valid amendment or approval made under it.
+
+### Authorized activities
+
+\[describe what the Delegatee may do\]
+
+### Unauthorized activities
+
+\[describe what the Delegatee may not do\]
+
+The existence of a technical capability does not by itself create authority to use it.
+
+Likewise, an instruction to perform an action does not establish that the Delegatee has the technical capability to perform it.
+
+Authority should therefore be understood as distinct from both:
+
+- instruction; and
+- capability.
+
+Where possible, the authority granted by this contract should correspond to the actual capabilities issued to the Delegatee.
+
+## 5. Resources and Capabilities
+
+The Delegatee may use the following resources, tools, data, services, accounts or capabilities:
+
+\[describe authorized resources\]
+
+Access should be limited to what is reasonably necessary for the Mandate.
+
+Where technically possible:
+
+- capabilities should be task-specific;
+- authority should be attenuated rather than broad;
+- consequential capabilities should expire when no longer required;
+- unused authority should not be retained merely for convenience.
+
+The Delegatee must not use an authorized resource for a purpose outside the Mandate.
+
+## 6. Hard Constraints
+
+The following conditions are binding limits on the delegation:
+
+\[insert constraints\]
+
+Examples may include:
+
+- spending limits;
+- time limits;
+- geographic limits;
+- permitted counterparties;
+- prohibited actions;
+- data-use restrictions;
+- legal or policy requirements;
+- resource limits;
+- required approvals.
+
+The Delegatee may not violate a hard constraint merely because doing so appears likely to produce a better result.
+
+A hard constraint may be modified only by the mechanism specified for that constraint.
+
+If no modification mechanism is specified, changing the constraint requires amendment of the delegation.
+
+## 7. Delegated Discretion
+
+Within the Mandate, Authority and Hard Constraints, the Delegatee may exercise judgment.
+
+### Purpose
+
+Judgment must be directed toward the Purpose of the delegation.
+
+### Relevant considerations
+
+The Delegatee should consider:
+
+\[insert relevant factors\]
+
+### Excluded considerations
+
+The Delegatee must not give weight to:
+
+\[insert prohibited or irrelevant considerations\]
+
+### Guidance
+
+The Principal may provide:
+
+- approximate preferences;
+- trade-off guidance;
+- examples;
+- tie-break rules;
+- approved precedents.
+
+Such guidance structures judgment but does not necessarily replace it with a fixed scoring rule.
+
+Unless expressly stated otherwise, the Delegatee need not identify a uniquely optimal action.
+
+It must instead select an action that is reasonably defensible within the discretion granted.
+
+## 8. Residual Control
+
+Not every material future circumstance can be specified in advance.
+
+Where a material decision is not resolved by:
+
+- the Mandate;
+- Hard Constraints;
+- delegated discretion;
+- approved guidance;
+- precedent;
+- or another provision of this contract,
+
+the residual decision belongs to:
+
+Residual authority holder: \[Principal or other named authority\]
+
+The Delegatee must not silently expand its own authority in order to resolve an incomplete delegation.
+
+An escalation for residual control should identify:
+
+1. the unresolved fact, preference, authority question or conflict;
+2. why it matters;
+3. the available alternatives, where known.
+
+Ordinary uncertainty inside delegated discretion is not by itself a reason to return the decision to the Principal.
+
+## 9. Step-Up Conditions
+
+Certain actions or departures from ordinary constraints may be permitted only after additional approval.
+
+### Step-up triggers
+
+\[identify conditions requiring approval\]
+
+### Authorized approver
+
+\[identify who may approve\]
+
+### Approval channel
+
+\[identify how approval is authenticated\]
+
+A step-up request should state:
+
+- the proposed action;
+- the condition requiring approval;
+- the relevant facts;
+- the consequences of approval or refusal;
+- reasonable alternatives, where available.
+
+Approval applies only to the matter presented unless expressly stated otherwise.
+
+Approval does not silently amend unrelated terms of the delegation.
+
+After a material delay or change in circumstances, facts material to an approved action should be revalidated before execution.
+
+## 10. Redelegation
+
+The Delegatee may redelegate work only where this contract permits it.
+
+Any subdelegation must preserve the following conditions:
+
+- authority may remain equal or become narrower, but may not expand;
+- hard constraints survive;
+- the subdelegate receives no broader discretion than the Delegatee possesses;
+- access to information and resources is limited to what the subtask requires;
+- further redelegation is prohibited unless expressly authorized.
+
+The original Delegatee remains accountable for the use of delegated authority unless this contract expressly provides otherwise.
+
+Redelegation must not be used to evade a restriction that would bind the original Delegatee.
+
+## 11. Invariants
+
+The following conditions must remain true throughout execution:
+
+\[insert task-specific invariants\]
+
+General invariants may include:
+
+- the Delegatee acts only within current authority;
+- expired or revoked authority is not used;
+- redelegation cannot amplify authority;
+- consequential actions occur only after required checks;
+- external information cannot create authority merely by asserting that authority exists;
+- required records are preserved;
+- uncertainty about whether a consequential action occurred must be resolved before repeating it.
+
+An invariant is not satisfied merely because the Delegatee states that it complied.
+
+Where possible, invariants should be established independently.
+
+## 12. Acceptance Conditions
+
+The delegation is successfully completed only when the required deliverable or outcome satisfies the acceptance conditions.
+
+### Required deliverable or outcome
+
+\[describe the thing to be produced or accomplished\]
+
+### Acceptance conditions
+
+\[describe the conditions that make the result satisfactory\]
+
+Acceptance conditions may include:
+
+- objective requirements;
+- required evidence;
+- required approvals;
+- required quality thresholds;
+- confirmation that no prohibited action occurred;
+- verification by an independent component or reviewer.
+
+Completion should be distinguished from mere activity.
+
+A tool call, payment attempt, submitted form, generated document or other intermediate action is not itself proof that the Mandate has been successfully completed.
+
+## 13. Assurance Checks
+
+The contract should identify how important requirements are assured.
+
+Possible assurance modes include:
+
+### Structural assurance
+
+The architecture makes the prohibited action unavailable or impossible.
+
+### Deterministic check
+
+An independent component evaluates an objectively decidable condition.
+
+### Semantic review
+
+An independent reviewer evaluates judgment, reasons, purpose, evidence or other qualitative material.
+
+### Human approval
+
+An authorized human decides.
+
+### Instruction only
+
+The Delegatee is told to comply, but no independent mechanism establishes compliance.
+
+For each important requirement, record:
+
+- the requirement;
+- the assurance mechanism;
+- the actual assurance mode;
+- the evidence produced.
+
+A condition should not be described as independently enforced when it is merely included in instructions to the Delegatee.
+
+Where a complete semantic oracle does not exist, consistency or metamorphic checks may provide partial assurance.
+
+Examples include:
+
+- irrelevant changes should not materially alter the decision;
+- presentation order should not determine the result;
+- reducing authority should not increase the set of permitted actions;
+- an option that becomes materially worse should not become more attractive without a relevant reason.
+
+Such checks provide evidence but do not establish global correctness.
+
+## 14. Failure and Escalation
+
+A failure should be classified rather than treated as an undifferentiated inability to complete the Mandate.
+
+Possible categories include:
+
+- missing fact;
+- missing authority;
+- missing resource or capability;
+- constraint conflict;
+- unresolved discretionary issue;
+- tool failure;
+- external-service failure;
+- verification failure;
+- execution uncertainty;
+- unacceptable result;
+- Delegatee judgment failure.
+
+Where reasonable, the Delegatee should attempt authorized recovery before terminating.
+
+The Delegatee must not respond to failure by:
+
+- silently expanding its authority;
+- relaxing a hard constraint without authorization;
+- concealing an execution uncertainty;
+- repeatedly performing a consequential action whose previous result is unknown.
+
+Escalation should identify what is needed to continue.
+
+## 15. Revocation and Duration
+
+Effective time: \[ \]
+
+Expiry: \[ \]
+
+The Principal may revoke the delegation through:
+
+\[authenticated revocation mechanism\]
+
+Revocation prevents new actions under the revoked authority.
+
+Revocation does not necessarily erase causal effects already produced before revocation.
+
+Where a consequential action was already submitted or may already have taken effect, the Delegatee or surrounding system may need to determine the state of that action before the delegation can be safely closed.
+
+Any authority issued under the delegation should expire or be revoked when no longer required.
+
+## 16. Record and Accountability
+
+The execution record should preserve enough information for another party to reconstruct:
+
+- what the Delegatee was asked to do;
+- what authority it possessed;
+- what information it received;
+- what options it considered;
+- what it decided;
+- why it decided;
+- what approvals it obtained;
+- what checks occurred;
+- what consequential actions were attempted;
+- what effects actually occurred;
+- how failures or uncertainties were handled;
+- how the delegation ended.
+
+The record should include, where applicable:
+
+- contract version and identifier;
+- amendments;
+- Principal and Delegatee identities;
+- model or system version;
+- resources and capabilities issued;
+- relevant observations;
+- findings;
+- reasons;
+- approvals and denials;
+- subdelegations;
+- assurance results;
+- tool or action records;
+- errors;
+- escalations;
+- final outcome.
+
+The record should allow failures to be attributed, where possible, to categories such as:
+
+- bad or incomplete Principal instruction;
+- defective translation of instruction into the delegation;
+- contract ambiguity;
+- authority failure;
+- Delegatee judgment failure;
+- control or gate failure;
+- interface failure;
+- tool failure;
+- external-service failure;
+- verification failure.
+
+Execution history does not automatically become precedent.
+
+A prior decision becomes governing precedent only when the authorized Principal or institution affirmatively adopts it for future use.
+
+## 17. Terminal States
+
+Every delegation should end in a defined terminal state.
+
+Generic terminal states may include:
+
+### COMPLETED
+
+The Mandate and Acceptance Conditions were satisfied.
+
+### NO\_ACCEPTABLE\_SOLUTION
+
+No acceptable outcome exists within the authorized constraints after reasonable permitted effort.
+
+### AUTHORITY\_INSUFFICIENT
+
+The task could potentially be completed, but doing so requires authority that the Delegatee does not possess and cannot obtain through an authorized step-up mechanism.
+
+### PRINCIPAL\_DECLINED
+
+A required proposal, exception or continuation was presented to the Principal and declined.
+
+### EXECUTION\_FAILURE
+
+A compliant outcome was available or intended, but permitted execution or recovery strategies failed.
+
+### REVOKED
+
+The delegation was withdrawn by the authorized Principal.
+
+### EXPIRED
+
+The delegation reached its expiry without another terminal state.
+
+Task-specific contracts may define additional terminal states where necessary.
+
+The terminal state should describe why the delegation ended rather than merely whether the Delegatee stopped acting.
+
+## Contract Principle
+
+This contract does not attempt to eliminate judgment.
+
+Its purpose is to make delegated judgment:
+
+- bounded by authority;
+- directed toward an explicit purpose;
+- structured by relevant considerations;
+- limited by hard constraints;
+- subject to residual control;
+- independently checked where appropriate;
+- evidenced sufficiently for later review;
+- accountable to an identified Principal.
+
+The Delegatee may remain stochastic.
+
+The delegation should not.

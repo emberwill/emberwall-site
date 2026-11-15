@@ -1,0 +1,115 @@
+---
+title: "Reading"
+subtitle: "The sources behind the notes, and where the tests sit"
+description: "A map of the delegation work: the questions it asks at each stage, the tests so far, and the reading behind them."
+toc: true
+---
+
+I started with a contract. For a mock flight booking, I needed to say what the agent was allowed to do, what it could decide for itself, and when it had to come back to me. I later turned the contract into a [template](/contract.qmd) for other jobs.
+
+After the test, I wondered what someone who wasn’t there could establish about the grant and how it was used. That’s the question I take up in [*Assuring one delegation*](/notes/delegation-assurance/index.qmd).
+
+This page traces the ideas I drew on to write the grant, check its use, and review choices that call for judgment. Some of these sources already deal with AI delegation. Where I draw on other fields, the analogy is mine.
+
+## The chain and the cases
+
+I’m testing whether these ideas can work together so that an outsider can follow a single consequential delegation from the original request to the outcome and see how an affected person can seek a remedy. A case can cover several steps.
+
+| Stage | Question | Case or status |
+| --- | --- | --- |
+| Before the grant | What did the person want, and who was entitled to authorize the job? | No dedicated case yet. |
+| Forming the grant | Does the written grant capture the task, its limits, and what the agent may decide? | No dedicated case yet. |
+| Issuing authority | What could the agent actually cause, directly or indirectly? | [Read-only code review](/cases/index.qmd#read-only-code-review-dce-0002). |
+| Judgment | Was the agent’s choice authorized, and was it defensible given the facts and priorities in the grant? | [Flight booking](/cases/index.qmd#flight-booking-flight-dce-001). |
+| Execution | What happened, and which controls allowed or blocked it? | [Flight booking](/cases/index.qmd#flight-booking-flight-dce-001) and [weather report](/cases/index.qmd#weather-report-weather-001). |
+| Fulfillment | Did the agent reach an acceptable outcome or escalate in time? | No dedicated case yet. |
+| Verification | What can an independent reviewer establish from the records? Where does the evidence run out? | [Flight booking](/cases/index.qmd#flight-booking-flight-dce-001). Model panel and author review complete. Seeking an independent verifier. |
+| Accountability | Who owes an explanation, who can contest what happened, and how can they seek a remedy? | DISC-001. Test run complete and write-up drafted. Seeking a privacy or administrative-law reviewer. |
+| Learning | Which decided cases justify a change to the rules for future grants? | No dedicated case yet. |
+
+## Writing the grant
+
+- **OAuth 2.0 and OpenID Connect.** OAuth lets an application obtain limited access to a service. OpenID Connect adds a way for the application to verify who signed in. [OAuth 2.0](https://www.rfc-editor.org/rfc/rfc6749) · [OpenID Connect Core](https://openid.net/specs/openid-connect-core-1_0.html)
+- **Tomašev, Franklin, and Osindero.** Delegation involves setting roles and limits, transferring authority, and assigning responsibility. Their framework asks how the parties can establish trust and verify the work. [Intelligent AI Delegation](https://arxiv.org/abs/2602.11865)
+- **Kao.** A task-level contract states what the job is, what counts as an acceptable result, what actions are authorized, and when to hand a decision back. The detail the contract needs depends on the consequences of the action. [Delegation Contracts for Agentic AI](https://jqpp.org/articles/2026-005/)
+- **South et al.** Existing authentication and authorization protocols can be extended with agent-specific credentials and metadata. [Position: AI Agents Need Authenticated Delegation](https://proceedings.mlr.press/v267/south25a.html)
+- **Miller.** Least authority. Give an agent the capabilities it needs for the job and check what those capabilities actually let it cause.
+- **Birgisson et al.** A holder can pass on a macaroon with additional conditions that narrow how it can be used. [Macaroons](https://www.ndss-symposium.org/ndss2014/ndss-2014-programme/macaroons-cookies-contextual-caveats-decentralized-authorization-cloud/)
+- **Meyer.** Preconditions, postconditions, and invariants make obligations explicit so they can be checked.
+- **Grossman and Hart.** Ownership carries residual rights to decide how assets are used in circumstances the contract leaves unspecified. I borrow that idea to name who can settle a question outside the agent’s delegated discretion. [The Costs and Benefits of Ownership](https://www.journals.uchicago.edu/doi/10.1086/261404)
+- **Holmström and Milgrom.** Strong rewards for the parts of a job that are easy to measure can draw effort away from work that is harder to measure. I use this as a caution when writing acceptance conditions. [Multitask Principal–Agent Analyses](https://web.stanford.edu/~milgrom/publishedarticles/Multitask%20Principal%20Agent.pdf)
+- **Davis.** Where discretion is needed, give it limits, structure how it is exercised, and make it possible to review.
+
+I use Miller to think about what an agent can cause and Davis to think about how it should choose within those limits.
+
+## Where this shows up in the contract
+
+| Sections | What they do | Sources |
+| --- | --- | --- |
+| §3 Preconditions, §11 Invariants, §12 Acceptance conditions | Set conditions for before, during, and after the job and give an outside checker something to assess. | Meyer |
+| §4 Authority | Records what the agent has permission to do, separately from what it was asked to do and what its tools allow. | Miller |
+| §5 Resources and capabilities, §10 Redelegation, §15 Revocation and duration | Keep capabilities narrow, tied to the task, and time-limited. Any authority passed on stays within the original grant and can be narrowed further. | Miller, Macaroons, OAuth |
+| §2 Mandate, §7 Delegated discretion | State the purpose and which considerations count. Within the grant, the agent can choose among options it can reasonably defend. | Davis |
+| §8 Residual control | Names who can settle questions the grant leaves unresolved. The agent handles ordinary uncertainty within the discretion it was given. | Grossman and Hart |
+| §12 Acceptance conditions, §17 Terminal states | Define what counts as an acceptable result and give each way the job can end a named state. | Holmström and Milgrom |
+| §13 Assurance checks | Records how each requirement is supported, from making violations impossible by design to relying on instructions alone. Tests can also check for consistency across runs when the task allows several defensible outcomes. | Miller, Meyer, Chen et al. |
+| §16 Record and accountability | Keeps findings and reasons. A past decision becomes precedent when someone with authority adopts it. | Davis |
+
+## Checking it and answering for it
+
+The contract can name the grantor and say what records to keep. An outside reviewer needs evidence about which powers the grantor was entitled to give and how the agent used them.
+
+Take a purchase journal with four entries. A reviewer can use a hash to check that it matches the version set aside for review. To rule out a fifth purchase, the reviewer also needs evidence that the records cover every way the agent could make a purchase.
+
+- **Hulea.** The proposed protocol checks that a mandate was issued and seeks separate evidence about which permissions the issuer was entitled to delegate. This is an individual Internet-Draft. [Verifiable Mandates for Agents Acting Across Administrative Domains](https://datatracker.ietf.org/doc/draft-hulea-wimse-agent-mandate/)
+- **Zhao et al.** A checkable claim specifies the policy it refers to, what it covers, what records would settle it, and who keeps them. A reviewer needs evidence of both integrity and completeness. Missing records can leave the claim undecidable. [Auditable Claims about AI Agents](https://arxiv.org/abs/2610.07459)
+- **Brown.** The assurance profession has standards for independence, evidence, and conclusions. Applying them to AI requires suitable criteria to assess against. [We Already Have a Framework for AI Assurance](https://babl.ai/we-already-have-a-framework-for-ai-assurance-what-we-need-is-the-right-content/)
+- **ISAE 3000 (Revised), ISO 14064-3, ISO 14065, and ISO/IEC 17029.** ISAE 3000 gives the structure of an assurance engagement. ISO 14064-3 covers validation and verification of greenhouse-gas statements. ISO/IEC 17029 sets general requirements for validation and verification bodies, and ISO 14065 applies them to bodies that work with environmental information. [ISAE 3000 (Revised)](https://ifacweb.blob.core.windows.net/publicfiles/2024-08/IAASB-2023-2024-Handbook-Volume-3.pdf) · [ISO 14064-3](https://www.iso.org/standard/66455.html) · [ISO 14065](https://www.iso.org/standard/74257.html) · [ISO/IEC 17029](https://www.iso.org/standard/29352.html)
+- **Verra’s Verified Carbon Standard.** Versioned methodologies, validation of project design, verification of reported results, and a registry. Buffer pools provide for reversals in projects subject to those rules. [VCS land-use projects](https://verra.org/programs/verified-carbon-standard/area-of-focus-agriculture-forestry-land-use/)
+- **Kong.** A deployer’s duty to answer for a delegation rests on what the deployer could control when deciding to hand over the job. [The Delegation Illusion](https://link.springer.com/article/10.1007/s43681-026-01383-x)
+- **Darwall.** An obligation is owed to someone. That person has standing to demand an account. [Demystifying Promises](https://doi.org/10.1093/acprof:oso/9780199662609.003.0008)
+- **Baum et al.** Oversight that depends on stepping in at every action becomes impractical as the agent takes longer sequences of actions. Setting the bounds ahead of time is also part of oversight. [Anticipatory Human Oversight of Agentic AI](https://arxiv.org/abs/2609.24242)
+- **Hua et al.** A proposal to combine risk assessment, underwriting, and compensation for transactions involving agents. [Quantifying Trust](https://www.microsoft.com/en-us/research/publication/quantifying-trust-financial-risk-management-for-trustworthy-ai-agents/)
+
+The [working note](/notes/delegation-assurance/index.qmd) sets out the nine greenhouse-gas instruments I adapt and where the analogy breaks down.
+
+## Reviewing a judgment
+
+Two flights might meet all the conditions in a grant. One costs less and involves a connection. The other is nonstop and costs more. A reviewer can ask whether the choice makes sense given the traveller’s priorities and the options the agent had.
+
+- **Vavilov, 2019 SCC 65.** In reasonableness review, a court asks whether the decision’s reasoning holds together and whether the decision is justified given the legal and factual constraints. When the impact on a person’s rights or interests is severe, the reasons must reflect the stakes. I borrow that approach for reviewing choices within the agent’s discretion. [Vavilov, paras. 85 and 133–135](https://www.canlii.org/t/j46kb)
+- **Chen, Cheung, and Yiu.** Metamorphic testing checks how outputs relate across runs. If the grant gives search-result order no role, shuffling the same results should yield the same set of eligible flights. [Metamorphic Testing](https://cse.hkust.edu.hk/faculty/scc/publ/CS98-01-metamorphictesting.pdf)
+- **Davis.** Open precedents. Make decided cases and the reasons for them available so the next person can see how a hard choice was handled.
+
+I ask three questions about the action.
+
+1. **Correctness.** Did it satisfy the fixed constraints?
+2. **Reasonableness.** Did the agent’s findings and reasons support its choice?
+3. **Proportionality.** Were the cost and consequences warranted by the purpose of the grant, given the alternatives?
+
+I can check a $660 fare against a fixed $650 cap. Reviewing a $600 booking with a long layover takes information about the other flights and what mattered to the traveller.
+
+A hard case can improve the rules when someone with authority adopts a finding as precedent. Agreement among model reviewers can inform that decision. A change to the rules applies to later grants.
+
+## What the tests show so far
+
+In the mock tests, software outside the model blocked prohibited actions. Two different agents operated under the same frozen flight contract. A model panel reviewed blinded case packets against that contract, with some judgments left open. The controls also sometimes got in the way of authorized work.
+
+### Open questions
+
+- Does the structure carry over to other kinds of work, such as procurement or correspondence?
+- Can someone write a valid grant on their own?
+- Can an independent professional issue a defensible opinion on a single delegation?
+- Can the people affected by a delegation use the route to a remedy?
+- Does this produce better outcomes than the way agents are used now?
+
+I want someone to be able to hand over a job without having to read this page. They should be able to say what they want done, what matters to them, what the agent may decide, and what it must ask about. Afterward, they should be able to find out whether it was done properly and who answers if it went wrong.
+
+## Where I need another person
+
+- **An independent verifier for the flight case.** I wrote the contract and made the final calls. I’d like a verifier to work through the evidence as a paper exercise and say which claims it supports and where the evidence runs out.
+- **A privacy or administrative-law reviewer for DISC-001.** I’d like someone with that background to read a fictional complaint record and assess what it establishes about who could direct the vendor after a complaint was upheld and whether a direction was delivered.
+
+If you can help with either case, or if I’ve misread a source or missed one, I’d like to hear from you at [will@emberwall.net](mailto:will@emberwall.net).
+
+I used AI tools for research and drafting assistance on this page.
