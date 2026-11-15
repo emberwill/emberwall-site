@@ -1,0 +1,11 @@
+/*-- scss:defaults --*/
+$primary: #a8431c;           // ember
+$link-color: $primary;
+$navbar-bg: #fbf8f4;
+$navbar-fg: #3a2f28;
+$body-bg: #fbf8f4;
+$body-color: #2a2420;
+$footer-bg: #fbf8f4;
+
+/*-- scss:rules --*/
+.navbar { border-bottom: 1px solid rgba(0,0,0,0.08); }
