@@ -26,7 +26,7 @@ website:
 format:
   html:
     theme:
-      light: [flatly, theme.scss]
+      light: [flatly, theme.scss, theme-light.scss]
       dark: [darkly, theme.scss, theme-dark.scss]
     toc: true
     toc-depth: 2

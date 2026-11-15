@@ -14,7 +14,8 @@ Source for [emberwall.net](https://emberwall.net), working notes by Will Brooke.
 | `about.qmd` | About and contact |
 | `404.qmd` | Page-not-found page |
 | `_quarto.yml` | Site settings and navigation |
-| `theme.scss`, `theme-dark.scss` | Colours and fonts (light and dark) |
+| `theme.scss` | Fonts and layout shared by both modes |
+| `theme-light.scss`, `theme-dark.scss` | Colours for light and dark mode |
 | `pdf-links.lua` | Turns links between pages into full web addresses in the PDF |
 | `.github/workflows/publish.yml` | Builds and publishes the site on every push to `main` |
 
