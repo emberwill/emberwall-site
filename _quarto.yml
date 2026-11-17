@@ -23,6 +23,7 @@ website:
         href: about.qmd
   page-footer:
     left: "© 2026 Will Brooke · Views are my own, not my employer's."
+    center: "[Off Script, a game](/off-script.qmd)"
     right: "Working notes, versioned and dated."
 
 format:

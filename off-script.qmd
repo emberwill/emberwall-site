@@ -1,0 +1,22 @@
+---
+title: "Off Script"
+subtitle: "A text game about everyday strangers, unspoken rules, and where you stand"
+open-graph:
+  description: "A text game about everyday strangers, unspoken rules, and where you stand."
+toc: false
+---
+
+You meet strangers, one at a time, in ordinary places: a ferry crossing a harbour, a bus shelter, a laundromat. Someone asks you to watch their bags “for two minutes.” Someone needs a window shut for a sleeping child. Someone wants an answer you’re not sure you owe them. You type what you do and say in your own words, and the scene answers. There’s nothing to collect and no score.
+
+Some people will meet you as an equal, some won’t, and some can be invited to. It’s a low-stakes place to practice standing close to other people without stepping on their toes—or letting yours be stepped on—and finding a fair way forward when either happens.
+
+After each meeting, the game hands back a few moments with a plain question, such as what you thought you’d agreed to. Behind the scenes, it keeps a short sketch of the habits you fall into and picks the next stranger to test something you haven’t faced yet. That sketch isn’t a verdict: you can read it, argue with it, and make it change its mind.
+
+[Play Off Script](/off-script/){.btn .btn-primary .btn-lg}
+
+## Before you play
+
+- **You bring the model.** Sign in with OpenRouter, and your turns use your OpenRouter credit. Or paste an API key from Anthropic, OpenAI or Mistral. In my testing, a full meeting has cost well under a dollar.
+- **What you type goes to the model provider you choose,** under their terms. The game's server passes your turns along and counts how many are played, but it doesn't keep what you write or store your key.
+- **Your progress stays in your browser.** If you switch browsers or devices, you start fresh.
+- **It's an early version,** and it will sometimes stumble. If something goes wrong, or a stranger rings false, I'd like to hear about it: [will@emberwall.net](mailto:will@emberwall.net)

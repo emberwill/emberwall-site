@@ -9,4 +9,6 @@ This site is where I ask a related question about AI agents. If I give an agent 
 
 The working note, [Assuring one delegation](notes/delegation-assurance/index.qmd), sets out the proposal, and the [Tests](cases/index.qmd) page summarizes the small experiments behind it.
 
+Separately, I've made a small text game, [Off Script](off-script.qmd), about meeting strangers as equals: the everyday version of the same questions about standing and accountability.
+
 I write here in a personal capacity. If you’ve run into a case that would put these ideas to the test, I’d like to hear about it: [will@emberwall.net](mailto:will@emberwall.net)
