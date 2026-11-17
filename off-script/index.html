@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Off Script</title>
+<meta name="offscript-api" content="https://off-script-production.up.railway.app">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f5f1e8; --ink:#24211d; --muted:#7a736a; --rule:#dcd3c4; --accent:#8a5530;
+  --you:#35586b; --panel:#fbf8f1; --danger:#9b2c2c; --shade:rgba(30,25,20,.28);
+  --serif:"Literata", Georgia, "Times New Roman", serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --paper:#16161a; --ink:#e6e0d4; --muted:#9a9388; --rule:#34322e; --accent:#d4a373;
+         --you:#9fc0d4; --panel:#1d1d22; --danger:#e48a8a; --shade:rgba(0,0,0,.55); }
+}
+:root[data-theme="dark"]{ --paper:#16161a; --ink:#e6e0d4; --muted:#9a9388; --rule:#34322e; --accent:#d4a373;
+         --you:#9fc0d4; --panel:#1d1d22; --danger:#e48a8a; --shade:rgba(0,0,0,.55); }
+html{color-scheme:light}
+:root[data-theme="dark"]{color-scheme:dark}
+.theme-toggle{display:flex;align-items:center;gap:7px;background:none;border:0;padding:4px 6px;cursor:pointer;color:var(--muted)}
+.theme-toggle svg{width:15px;height:15px;display:block}
+.theme-toggle .track{width:36px;height:20px;border-radius:10px;border:1.5px solid var(--muted);position:relative;transition:background .2s,border-color .2s}
+.theme-toggle .knob{position:absolute;top:2px;left:2px;width:13px;height:13px;border-radius:50%;background:var(--muted);transition:transform .2s,background .2s}
+.theme-toggle[aria-checked="true"] .track{background:var(--accent);border-color:var(--accent)}
+.theme-toggle[aria-checked="true"] .knob{transform:translateX(16px);background:var(--paper)}
+.theme-toggle:focus-visible{outline:2px solid var(--you);outline-offset:2px;border-radius:6px}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--paper);color:var(--ink)}
+body{font-family:var(--serif);font-size:18px;line-height:1.62;min-height:100vh;display:flex;flex-direction:column}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--accent)}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;border-bottom:1px solid var(--rule);position:sticky;top:0;background:var(--paper);z-index:5}
+header h1{font-size:17px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin:0}
+header h1 span{color:var(--muted);font-weight:400;letter-spacing:.06em;text-transform:none;font-style:italic;margin-left:.6em;font-size:15px}
+header nav{display:flex;gap:6px}
+.btn{background:none;border:1px solid var(--rule);border-radius:6px;padding:6px 12px;cursor:pointer;font-family:var(--mono);font-size:13px;letter-spacing:.02em}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn.primary:hover{opacity:.9}
+.btn:disabled{opacity:.45;cursor:default}
+.btn.warn{color:var(--danger);border-color:var(--danger)}
+main{flex:1;width:100%;max-width:700px;margin:0 auto;padding:28px 22px 160px}
+#story .e{margin:0 0 1em}
+#story .e p{margin:0 0 .7em}
+#story .e p:last-child{margin-bottom:0}
+.e-place{font-family:var(--mono);font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:2.4em !important;padding-top:1.4em;border-top:1px solid var(--rule)}
+.e-place:first-child{margin-top:0 !important;border-top:0;padding-top:0}
+.e-place b{color:var(--accent);font-weight:500}
+.e-trans{color:var(--muted);font-style:italic}
+.e-you{font-family:var(--mono);font-size:15px;color:var(--you);white-space:pre-wrap}
+.e-you .caret{opacity:.6;margin-right:.3em}
+.e-epi{font-style:italic;border-left:2px solid var(--accent);padding-left:16px;margin-top:1.6em !important}
+.e-ledger details{border:1px solid var(--rule);border-radius:8px;padding:10px 14px;background:var(--panel);font-size:16px}
+.e-ledger summary{cursor:pointer;font-family:var(--mono);font-size:13px;color:var(--muted);letter-spacing:.03em}
+.e-ledger details[open] summary{margin-bottom:.6em}
+.e-ledger p{margin:.5em 0}
+.e-ledger b{font-weight:600}
+.e-note{font-family:var(--mono);font-size:13.5px;color:var(--danger);border:1px dashed var(--danger);border-radius:8px;padding:10px 14px}
+.e-note .row{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap}
+.thinking{display:flex;align-items:center;gap:14px;padding:6px 0}
+.thinking .dots{display:flex;gap:7px}
+.thinking .dots i{width:10px;height:10px;border-radius:50%;background:var(--accent);animation:pulse 1.2s infinite ease-in-out both}
+.thinking .dots i:nth-child(2){animation-delay:.18s}.thinking .dots i:nth-child(3){animation-delay:.36s}
+.thinking .lbl{font-family:var(--mono);font-size:13px;color:var(--muted);letter-spacing:.03em}
+@keyframes pulse{0%,80%,100%{opacity:.3;transform:scale(.75)}40%{opacity:1;transform:scale(1.1)}}
+@media (prefers-reduced-motion: reduce){.thinking .dots i{animation:none;opacity:.8}}
+#welcome h2{font-weight:400;font-size:34px;margin:.2em 0 .5em;letter-spacing:.01em}
+#welcome p{margin:0 0 1em}
+#welcome .small{color:var(--muted);font-size:15.5px}
+#welcome .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:1.4em;align-items:center}
+#dock{position:fixed;left:0;right:0;bottom:0;background:linear-gradient(to bottom, transparent, var(--paper) 22%);padding:28px 20px 18px;z-index:4}
+#dock .inner{max-width:700px;margin:0 auto}
+#form{display:flex;gap:8px;align-items:stretch}
+#form .prompt{font-family:var(--mono);color:var(--you);align-self:center;font-size:18px}
+#input{flex:1;font-family:var(--mono);font-size:15.5px;padding:11px 12px;border:1px solid var(--rule);border-radius:8px;background:var(--panel);outline:none;min-width:0}
+#input:focus{border-color:var(--you)}
+#dock .aux{display:flex;gap:8px;justify-content:space-between;margin-top:8px;font-family:var(--mono);font-size:12px;color:var(--muted);flex-wrap:wrap;align-items:center}
+#dock .aux .grp{display:flex;gap:6px}
+#goon{display:flex;justify-content:center}
+.hidden{display:none !important}
+/* drawers */
+.shade{position:fixed;inset:0;background:var(--shade);z-index:20}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(470px,100%);background:var(--paper);border-left:1px solid var(--rule);z-index:21;overflow-y:auto;padding:22px 24px 40px;font-size:16px}
+.drawer h3{font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500;margin:1.8em 0 .7em}
+.drawer h3:first-of-type{margin-top:.4em}
+.drawer .top{display:flex;justify-content:space-between;align-items:center}
+.drawer .top h2{margin:0;font-size:22px;font-weight:400}
+.drawer label{display:block;font-family:var(--mono);font-size:12.5px;color:var(--muted);margin:12px 0 4px}
+.drawer input[type=text],.drawer input[type=password],.drawer select,.drawer textarea{width:100%;padding:8px 10px;border:1px solid var(--rule);border-radius:6px;background:var(--panel);font-family:var(--mono);font-size:14px}
+.drawer textarea{min-height:90px;resize:vertical}
+.drawer .check{display:flex;gap:8px;align-items:flex-start;font-family:var(--serif);font-size:15px;color:var(--ink);margin-top:12px}
+.drawer .check input{margin-top:5px}
+.drawer .hint{font-size:14px;color:var(--muted);margin:.5em 0}
+.drawer .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.drawer .ok{font-family:var(--mono);font-size:12.5px;color:var(--accent)}
+.cat-item{border-top:1px solid var(--rule);padding:12px 0}
+.cat-item .t{font-weight:600}
+.cat-item .m{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.cat-item .ep{font-style:italic;margin:.4em 0}
+.cat-item details{font-size:15px}
+.cat-item summary{cursor:pointer;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.portrait{background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:12px 14px}
+.portrait .changed{font-family:var(--mono);font-size:12px;color:var(--accent)}
+#thread{margin-top:14px}
+.ans{margin:0 0 12px;padding-left:12px;border-left:2px solid var(--rule)}
+.ans .who{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em}
+.ans.you{border-left-color:var(--you)}
+.ans.you .txt{font-family:var(--mono);font-size:14px;color:var(--you);white-space:pre-wrap}
+.ans.lib{border-left-color:var(--accent)}
+.cat-item .ansLink,.lg .ansLink{margin-top:2px;font-size:12px;padding:3px 9px}
+.lg{margin:.2em 0 1em}
+.lg p{margin:.3em 0}
+.lg .q{font-style:italic;color:var(--accent)}
+</style>
+</head>
+<body>
+<header>
+  <h1>Off Script<span id="vol"></span></h1>
+  <nav>
+    <button class="theme-toggle" id="themeToggle" type="button" role="switch" aria-checked="false" aria-label="Dark mode" title="Dark mode">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3 3l1 1M12 12l1 1M3 13l1-1M12 4l1-1"/></svg>
+      <span class="track"><span class="knob"></span></span>
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M13.5 10.2A6 6 0 0 1 5.8 2.5a6 6 0 1 0 7.7 7.7z"/></svg>
+    </button>
+    <button class="btn" id="openCat" type="button">Catalogue</button>
+    <button class="btn" id="openSet" type="button">Settings</button>
+  </nav>
+</header>
+
+<main>
+  <section id="welcome" class="hidden">
+    <h2>Off Script</h2>
+    <p>You will meet strangers, one at a time, in ordinary places: a ferry crossing a harbour, a bus, a waiting room, a gate at an airport. There is nothing to collect and no score.</p>
+    <p>Type what you do, or what you say. Words in quotation marks are spoken exactly as you type them; start with ? to ask the narrator about the scene. You can ask, answer, refuse, apologize, hold your ground, wait, or leave.</p>
+    <p>Some people will meet you as an equal. Some won't. Some can be invited to. Getting it wrong here costs nothing: after each meeting you can see what actually passed between you, and each new stranger is chosen to test what the earlier meetings revealed.</p>
+    <p class="small" id="welcomeNote"></p>
+    <div class="row">
+      <button class="btn primary" id="begin" type="button">Begin</button>
+      <button class="btn" id="welcomeSet" type="button">Sign in or choose a model</button>
+    </div>
+  </section>
+  <div id="story" aria-live="polite"></div>
+</main>
+
+<div id="dock" class="hidden">
+  <div class="inner">
+    <div id="form">
+      <span class="prompt" aria-hidden="true">&gt;</span>
+      <input id="input" type="text" placeholder="What do you do or say?" aria-label="What do you do or say?" maxlength="1200" autocomplete="off">
+      <button class="btn primary" type="button" id="send">Go</button>
+    </div>
+    <div class="aux" id="aux">
+      <span>"Quotes" are spoken. Anything else is what you do. Start with ? to ask the narrator.</span>
+      <span class="grp">
+        <button class="btn" type="button" id="waitBtn">Wait</button>
+        <button class="btn" type="button" id="leaveBtn">Leave</button>
+      </span>
+    </div>
+    <div id="goon" class="hidden"><button class="btn primary" id="goonBtn" type="button">Go on</button></div>
+  </div>
+</div>
+
+<div class="shade hidden" id="shade"></div>
+
+<aside class="drawer hidden" id="setDrawer" aria-label="Settings">
+  <div class="top"><h2>Settings</h2><button class="btn" type="button" data-close>Close</button></div>
+
+  <h3>What runs the strangers</h3>
+  <p class="hint" id="hostHint"></p>
+  <label for="provider">Provider</label>
+  <select id="provider"></select>
+
+  <div id="tierBox">
+    <label for="tier">How much thought per turn (the Librarian’s work between meetings gets one step more)</label>
+    <select id="tier">
+      <option value="quick">Quick</option>
+      <option value="default" selected>Default</option>
+      <option value="complex">Thorough (slower)</option>
+    </select>
+  </div>
+
+  <div id="keyBox">
+    <div id="orBox" class="hidden">
+      <div class="row"><button class="btn primary" type="button" id="orSignIn">Sign in with OpenRouter</button><button class="btn" type="button" id="orSignOut">Sign out</button></div>
+      <p class="hint" id="orStatus"></p>
+    </div>
+    <label for="apikey" id="apikeyLabel">API key</label>
+    <input id="apikey" type="password" placeholder="Paste your key" spellcheck="false">
+    <div class="check"><input type="checkbox" id="remember"><label for="remember" style="all:unset">Remember the key in this browser. Leave this off on a shared computer.</label></div>
+    <p class="hint" id="keyHint">The key goes only from this page to the provider you chose. Calls are billed to your account with them.</p>
+  </div>
+
+  <div id="baseBox">
+    <label for="baseurl">Endpoint (OpenAI-compatible, ending in /v1)</label>
+    <input id="baseurl" type="text" placeholder="https://example.com/v1" spellcheck="false">
+  </div>
+
+  <div id="modelBox">
+    <label for="model">Model</label>
+    <input id="model" type="text" list="modelList" spellcheck="false">
+    <datalist id="modelList"></datalist>
+    <div class="row"><button class="btn" type="button" id="loadModels">Load my models</button><span class="ok" id="modelsMsg"></span></div>
+  </div>
+
+  <h3>After each meeting</h3>
+  <div class="check"><input type="checkbox" id="showLedger"><label for="showLedger" style="all:unset">Show “what passed between you”: plain notes on how claims were made and met. Off, you get only the closing paragraph.</label></div>
+
+  <div class="row" style="margin-top:18px"><button class="btn primary" type="button" id="saveSet">Save</button><span class="ok" id="setMsg"></span></div>
+
+  <h3>Your place in the library</h3>
+  <p class="hint" id="syncStatus">Saved in this browser only. To move it to another browser or device, copy it here and paste it there.</p>
+  <p class="hint" id="countNote"></p>
+  <div class="row"><button class="btn" type="button" id="copySave">Copy my save</button><span class="ok" id="copyMsg"></span></div>
+  <label for="saveText">Save text</label>
+  <textarea id="saveText" placeholder="Paste a save here, or choose a file below" spellcheck="false"></textarea>
+  <div class="row"><input type="file" id="saveFile" accept=".json,.txt,application/json,text/plain"></div>
+  <div class="row"><button class="btn" type="button" id="loadSave">Load this save</button><span class="ok" id="loadMsg"></span></div>
+
+  <p class="hint" id="build" style="margin-top:28px;font-family:var(--mono);font-size:12px"></p>
+  <h3>Start over</h3>
+  <p class="hint">Erases your catalogue and the library’s picture of you. Your settings stay.</p>
+  <div class="row"><button class="btn warn" type="button" id="reset">Start over</button></div>
+</aside>
+
+<aside class="drawer hidden" id="catDrawer" aria-label="Catalogue">
+  <div class="top"><h2>Catalogue</h2><button class="btn" type="button" data-close>Close</button></div>
+  <h3>How the library reads you</h3>
+  <div id="portrait"></div>
+  <div id="answerBox" class="hidden">
+    <div id="thread"></div>
+    <label for="answer">Answer the library</label>
+    <textarea id="answer" placeholder="Where does it get you wrong, or right? About the portrait, the next test, or any volume. The library will answer."></textarea>
+    <div class="row"><button class="btn primary" type="button" id="sendAnswer">Send</button><span class="ok" id="answerMsg"></span></div>
+  </div>
+  <h3>People you have met</h3>
+  <div id="catList"></div>
+</aside>
+
+<script>
+(() => {
+"use strict";
+const BUILD = "2026-11-17 · 0.1.2";
+const MODE = "server";   // "artifact": the page calls the model itself (claude.ai, or a key in the browser). "server": the Off Script server does.
+
+const API_BASE = ((document.querySelector('meta[name="offscript-api"]') || {}).content || "").replace(/\/+$/, "");
+
+/* ------------------------------------------------------------------ *
+ *  Providers                                                          *
+ * ------------------------------------------------------------------ */
+const PROVIDERS = {
+  claudeai:   { label: "Claude, through your claude.ai account", hosted: true },
+  anthropic:  { label: "Anthropic API (Claude)", base: "https://api.anthropic.com/v1", def: "claude-sonnet-5-5", keyHint: "sk-ant-…" },
+  openai:     { label: "OpenAI", base: "https://api.openai.com/v1", def: "gpt-5", keyHint: "sk-…" },
+  mistral:    { label: "Mistral", base: "https://api.mistral.ai/v1", def: "mistral-large-latest", keyHint: "" },
+  openrouter: { label: "OpenRouter (many providers)", base: "https://openrouter.ai/api/v1", def: "", keyHint: "sk-or-…" },
+  custom:     { label: "Another OpenAI-compatible endpoint", base: "", def: "", keyHint: "optional" }
+};
+
+/* ------------------------------------------------------------------ *
+ *  State                                                              *
+ * ------------------------------------------------------------------ */
+const STORE = "secondperson.v1", KEYSTORE = "secondperson.keys";
+let HOSTED = false;          // running inside claude.ai
+let sampleFn = null;         // claude.ai "sample" capability
+let sampleTried = false;
+let busy = false;
+let KEYS = {};
+
+function fresh(settings) {
+  return {
+    v: 1,
+    settings: settings || { provider: MODE === "server" ? "openrouter" : "anthropic", models: {}, baseUrl: "", tier: "default", showLedger: true, remember: false },
+    portrait: { summary: "", next: "" },
+    place: "", atPlace: 0, count: 0,
+    scene: null,
+    catalogue: [],
+    answers: [],
+    stats: { turns: 0, volumes: 0, answers: 0 },
+    runId: Math.random().toString(36).slice(2, 10),
+    updated: 0,
+    log: []
+  };
+}
+function load() {
+  try {
+    const t = localStorage.getItem(STORE);
+    if (t) { const s = JSON.parse(t); if (s && s.v === 1) return Object.assign(fresh(), s); }
+  } catch (e) {}
+  return fresh();
+}
+let S = load();
+try { const k = localStorage.getItem(KEYSTORE); if (k) KEYS = JSON.parse(k) || {}; } catch (e) {}
+
+function save(opts) {
+  const settingsOnly = opts && opts.settingsOnly;
+  if (S.log.length > 500) S.log = S.log.slice(-500);
+  if (!settingsOnly) S.updated = Date.now();
+  try { localStorage.setItem(STORE, JSON.stringify(S)); } catch (e) {}
+  if (!settingsOnly) scheduleRemote();
+  try {
+    if (S.settings.remember) localStorage.setItem(KEYSTORE, JSON.stringify(KEYS));
+    else localStorage.removeItem(KEYSTORE);
+  } catch (e) {}
+}
+
+/* ------------------------------------------------------------------ *
+ *  Account saves and turn counting (claude.ai only)                   *
+ *  - each player's save: data/users/<id>/save (private, even from     *
+ *    the page's owner)                                                *
+ *  - counts only: stats/<id> = {turns, volumes, answers}; never text  *
+ * ------------------------------------------------------------------ */
+let DB = null, UID = null, syncState = "local", remoteTimer = null, remoteBusy = false, remoteDirty = false, lastStats = "";
+const withTimeout = (p, ms) => Promise.race([p, new Promise((_, rej) => setTimeout(() => rej({ code: "timeout" }), ms))]);
+function compactForRemote(src) {
+  const c = JSON.parse(JSON.stringify(src));
+  delete c.settings;
+  const keepFrom = Math.max(0, c.catalogue.length - 5);
+  c.catalogue.forEach((e, i) => { if (i < keepFrom) { delete e.transcript; delete e.stranger; } });
+  c.log = c.log.slice(-300);
+  let body = JSON.stringify(c);
+  while (body.length > 200000 && c.log.length > 40) { c.log = c.log.slice(-Math.floor(c.log.length * 0.7)); body = JSON.stringify(c); }
+  while (body.length > 200000 && c.catalogue.some(e => e.transcript)) { const e = c.catalogue.find(x => x.transcript); delete e.transcript; delete e.stranger; body = JSON.stringify(c); }
+  return body;
+}
+function setSync(st) {
+  syncState = st;
+  const el = $("#syncStatus"); if (!el) return;
+  el.textContent = {
+    account: "Saved to your claude.ai account. Your place in the library follows you to other tabs and devices.",
+    saving: "Saving to your claude.ai account…",
+    error: "Couldn't reach your claude.ai account just now. Your progress is safe in this browser and will sync when it can.",
+    noaccess: "Saved in this browser only. This copy of the game can't save to your claude.ai account (the person who shared it hasn't given visitors that access). To move your progress, copy it here and paste it elsewhere.",
+    local: HOSTED ? "Saved in this browser only (your account's storage isn't available in this view)." : "Saved in this browser only. To move it to another browser or device, copy it here and paste it there."
+  }[st] || "";
+}
+function scheduleRemote() {
+  if (!DB || !UID) return;
+  clearTimeout(remoteTimer);
+  remoteTimer = setTimeout(pushRemote, 1500);
+}
+async function pushRemote() {
+  if (!DB || !UID) return;
+  if (remoteBusy) { remoteDirty = true; return; }
+  remoteBusy = true; remoteDirty = false; setSync("saving");
+  try {
+    await withTimeout(DB.doc(`data/users/${UID}/save`).set({ state: compactForRemote(S), updated: S.updated, runId: S.runId }), 15000);
+    const st = JSON.stringify(S.stats);
+    if (st !== lastStats) {
+      await withTimeout(DB.doc(`stats/${UID}`).set({ turns: S.stats.turns, volumes: S.stats.volumes, answers: S.stats.answers, updated: new Date().toISOString() }), 15000).catch(() => {});
+      lastStats = st;
+    }
+    setSync("account");
+  } catch (e) {
+    if (e && (e.code === "invalid_argument" || e.code === "revoked" || e.code === "not_granted")) { DB = null; setSync("noaccess"); }
+    else setSync("error");
+  }
+  remoteBusy = false;
+  if (remoteDirty) scheduleRemote();
+}
+function maxStats(a, b) {
+  a = a || {}; b = b || {};
+  return { turns: Math.max(a.turns || 0, b.turns || 0), volumes: Math.max(a.volumes || 0, b.volumes || 0), answers: Math.max(a.answers || 0, b.answers || 0) };
+}
+async function remoteInit() {
+  try {
+    const [db, user] = await withTimeout(Promise.all([window.claude.use("db"), window.claude.use("user")]), 10000);
+    if (!db || !user) { setSync("local"); return; }
+    const uid = await withTimeout(user.id(), 10000);
+    if (!uid) { setSync("local"); return; }
+    const snap = await withTimeout(db.doc(`data/users/${uid}/save`).get(), 10000);
+    DB = db; UID = uid;
+    let remote = null;
+    if (snap.exists) { try { remote = JSON.parse(snap.data().state); } catch (e) {} }
+    const localEmpty = !S.count && !S.log.length;
+    if (remote && remote.v === 1 && (localEmpty || (remote.updated || 0) > (S.updated || 0))) {
+      // the account has the newer save: keep this browser's copy as a backup if it's a different run with progress
+      if (S.count > 0 && S.runId !== remote.runId) { try { localStorage.setItem(STORE + ".backup", JSON.stringify(S)); } catch (e) {} }
+      const settings = S.settings, stats = maxStats(S.stats, remote.stats);
+      S = Object.assign(fresh(settings), remote, { settings, stats });
+      try { localStorage.setItem(STORE, JSON.stringify(S)); } catch (e) {}
+      renderStory(); updateControls();
+      setSync("account");
+    } else if (S.count > 0 || S.log.length) {
+      S.stats = maxStats(S.stats, remote && remote.stats);
+      await pushRemote();
+    } else setSync("account");
+  } catch (e) {
+    setSync(e && e.code === "timeout" ? "error" : "local");
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ *  Model calls                                                        *
+ * ------------------------------------------------------------------ */
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+async function getSample() {
+  if (sampleFn || sampleTried) return sampleFn;
+  sampleTried = true;
+  try { sampleFn = await window.claude.use("sample"); } catch (e) { sampleFn = null; }
+  return sampleFn;
+}
+
+async function fetchJSON(url, opts) {
+  let res;
+  try { res = await fetch(url, opts); }
+  catch (e) {
+    throw new Error(HOSTED
+      ? "This copy of the page runs inside claude.ai, which doesn't let pages call other services directly. Use “Claude, through your claude.ai account”, or open the standalone copy of the page to use your own API key."
+      : "Couldn't reach the provider. Check your connection and the endpoint. Some providers don't accept requests straight from a browser; if so, OpenRouter will usually work.");
+  }
+  const text = await res.text();
+  let data = null; try { data = JSON.parse(text); } catch (e) {}
+  if (!res.ok) {
+    const msg = (data && (data.error && (data.error.message || data.error) || data.message)) || text.slice(0, 300) || res.statusText;
+    let hint = "";
+    if (res.status === 401 || res.status === 403) hint = " Check your API key.";
+    if (res.status === 404) hint = " Check the model name.";
+    if (res.status === 429) hint = " The provider is rate-limiting you, or your credit is used up.";
+    throw new Error(`The provider answered ${res.status}: ${typeof msg === "string" ? msg : JSON.stringify(msg)}.${hint}`);
+  }
+  if (!data) throw new Error("The provider sent back something that wasn't JSON.");
+  return data;
+}
+
+async function llm(system, user, maxTokens, role) {
+  const p = S.settings.provider;
+  if (p === "claudeai") {
+    const sample = await getSample();
+    if (!sample) throw new Error("Claude through claude.ai isn't available in this view of the page.");
+    try {
+      const r = await sample([{ role: "user", content: system + "\n\n---\n\n" + user }], { cache: false, modelTier: tierFor(role) });
+      return r.text || "";
+    } catch (e) {
+      if (e && e.code === "not_granted") throw new Error("This page wasn't given permission to use Claude. Reload and allow it when asked.");
+      if (e && e.code === "rate_limited") throw new Error("Claude is rate-limiting this page for the moment. Wait a minute, then try again.");
+      throw new Error((e && e.message) || String(e));
+    }
+  }
+  const cfg = PROVIDERS[p];
+  const key = (KEYS[p] || "").trim();
+  const model = (S.settings.models[p] || cfg.def || "").trim();
+  if (!model) throw new Error("Choose a model in Settings first.");
+  if (p !== "custom" && !key) throw new Error("Add your API key in Settings first.");
+
+  if (p === "anthropic") {
+    const data = await fetchJSON(cfg.base + "/messages", {
+      method: "POST",
+      headers: { "content-type": "application/json", "x-api-key": key, "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true" },
+      body: JSON.stringify({ model, max_tokens: maxTokens, system, messages: [{ role: "user", content: user }] })
+    });
+    return (data.content || []).filter(b => b.type === "text").map(b => b.text).join("");
+  }
+
+  const base = p === "custom" ? (S.settings.baseUrl || "").trim().replace(/\/+$/, "") : cfg.base;
+  if (!base) throw new Error("Add the endpoint address in Settings first.");
+  const body = { model, messages: [{ role: "system", content: system }, { role: "user", content: user }] };
+  if (p === "openai") body.max_completion_tokens = Math.max(maxTokens * 4, 8000); // room for reasoning tokens
+  else body.max_tokens = maxTokens;
+  if (p === "openai" || p === "mistral") body.response_format = { type: "json_object" };
+  const headers = { "content-type": "application/json" };
+  if (key) headers.authorization = "Bearer " + key;
+  if (p === "openrouter") { headers["X-Title"] = "Off Script"; if (location.origin && location.origin !== "null") headers["HTTP-Referer"] = location.origin; }
+  const data = await fetchJSON(base + "/chat/completions", { method: "POST", headers, body: JSON.stringify(body) });
+  const m = data.choices && data.choices[0] && data.choices[0].message;
+  let c = m && m.content;
+  if (Array.isArray(c)) c = c.map(x => x.text || "").join("");
+  return c || "";
+}
+
+function tierFor(role) {
+  const t = S.settings.tier || "default";
+  if (role !== "librarian") return t;
+  return t === "quick" ? "default" : "complex";
+}
+async function listModels() {
+  const p = S.settings.provider, cfg = PROVIDERS[p], key = (KEYS[p] || "").trim();
+  if (MODE === "server") {
+    let res; try { res = await fetch(API_BASE + "/api/models", { headers: { "x-provider": p, "x-player-key": key } }); }
+    catch (e) { throw new Error("Couldn't reach the Off Script server."); }
+    const d = await res.json().catch(() => null);
+    if (!res.ok || !d || d.error) throw new Error((d && d.error) || `The server answered ${res.status}.`);
+    return d.models || [];
+  }
+  if (p === "anthropic") {
+    const d = await fetchJSON(cfg.base + "/models?limit=100", { headers: { "x-api-key": key, "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true" } });
+    return (d.data || []).map(m => m.id);
+  }
+  const base = p === "custom" ? (S.settings.baseUrl || "").trim().replace(/\/+$/, "") : cfg.base;
+  const headers = {}; if (key) headers.authorization = "Bearer " + key;
+  const d = await fetchJSON(base + "/models", { headers });
+  return (d.data || d.models || []).map(m => m.id || m.name).filter(Boolean).sort();
+}
+
+/* ------------------------------------------------------------------ *
+ *  Game flow                                                          *
+ * ------------------------------------------------------------------ */
+const MAX_TURNS = 18;
+
+// What the engine needs to know: the portrait, where you are, the recent catalogue (last five in full), your answers.
+function ctxBase() {
+  const cat = S.catalogue.slice(-12).map((c, i, a) => i >= a.length - 5 ? c : { n: c.n, title: c.title, place: c.place });
+  return { portrait: { summary: S.portrait.summary, next: S.portrait.next }, count: S.count, place: S.place, atPlace: S.atPlace, catalogue: cat, answers: (S.answers || []).slice(-8) };
+}
+function sceneForEngine(sc) { return { place: sc.place, stranger: sc.stranger, opening: sc.opening, turns: sc.turns }; }
+function sceneTextLocal(sc) {
+  let s = `OPENING (already narrated to the traveller):\n${sc.opening}\n`;
+  sc.turns.forEach((t, i) => { s += `\n[${i + 1}] TRAVELLER INPUT: ${t.you}\nNARRATED: ${t.narration}\n`; });
+  return s;
+}
+let PLAYER_ID = "";
+try { PLAYER_ID = localStorage.getItem("offscript.player") || ""; if (!PLAYER_ID) { PLAYER_ID = Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem("offscript.player", PLAYER_ID); } } catch (e) {}
+async function engineCall(kind, extra) {
+  const ctx = Object.assign(ctxBase(), extra || {});
+  if (MODE !== "server") return window.OS_ENGINE.RUN[kind](llm, ctx);
+  const p = S.settings.provider, cfg = PROVIDERS[p] || {};
+  const model = (S.settings.models[p] || cfg.def || "").trim();
+  const key = (KEYS[p] || "").trim();
+  if (!key) throw new Error(p === "openrouter" ? "Sign in with OpenRouter in Settings first." : "Add your API key in Settings first.");
+  if (!model) throw new Error("Choose a model in Settings first.");
+  let res;
+  try {
+    res = await fetch(API_BASE + "/api/call", { method: "POST",
+      headers: { "content-type": "application/json", "x-provider": p, "x-model": model, "x-player-key": key, "x-player": PLAYER_ID },
+      body: JSON.stringify({ kind, ctx }) });
+  } catch (e) { throw new Error("Couldn't reach the Off Script server. Check your connection and try again."); }
+  let data = null; try { data = await res.json(); } catch (e) {}
+  if (!res.ok || !data || data.error) throw new Error((data && data.error) || `The Off Script server answered ${res.status}.`);
+  return data.result;
+}
+
+async function nextEncounter() {
+  const d = await engineCall("director");
+  const place = String(d.place || S.place || "Somewhere").trim();
+  const moved = !S.place || d.move !== "stay" || place.toLowerCase() !== S.place.toLowerCase();
+  S.count += 1;
+  if (moved) { S.place = place; S.atPlace = 0; }
+  S.atPlace += 1;
+  S.log.push({ t: "place", text: place, n: S.count });
+  if (d.transition) S.log.push({ t: "trans", text: d.transition });
+  S.log.push({ t: "narr", text: d.opening });
+  S.scene = { id: Date.now().toString(36), place, stranger: d.stranger, opening: d.opening, turns: [], ended: false, closed: false };
+  save();
+}
+
+async function takeTurn(input) {
+  const sc = S.scene;
+  const final = sc.turns.length + 1 >= MAX_TURNS;
+  const r = await engineCall("turn", { scene: sceneForEngine(sc), input, final });
+  const t = { you: input, narration: r.narration.trim(), private: String(r.private || "").trim() };
+  sc.turns.push(t);
+  S.stats = S.stats || { turns: 0, volumes: 0, answers: 0 };
+  S.stats.turns += 1;
+  S.log.push({ t: "you", text: input });
+  S.log.push({ t: "narr", text: t.narration });
+  if (r.ended === true || r.ended === "true" || final) sc.ended = true;
+  save();
+}
+
+async function closeScene() {
+  const sc = S.scene;
+  const a = await engineCall("after", { scene: sceneForEngine(sc) });
+  const ledger = Array.isArray(a.ledger) ? a.ledger.filter(x => x && (x.note || x.moment || x.question)).map(x => ({ moment: String(x.moment || ""), note: String(x.note || ""), question: String(x.question || "") })) : [];
+  const title = String(a.title || sc.stranger.name || "A stranger");
+  S.log.push({ t: "epi", text: a.epilogue });
+  if (ledger.length) S.log.push({ t: "ledger", data: ledger, n: S.count });
+  S.stats = S.stats || { turns: 0, volumes: 0, answers: 0 };
+  S.stats.volumes += 1;
+  S.catalogue.push({ id: sc.id, n: S.count, title, place: sc.place, epilogue: String(a.epilogue), ledger, transcript: sceneTextLocal(sc).slice(0, 9000), stranger: sc.stranger, when: new Date().toISOString() });
+  sc.closed = true;
+  save();
+  try { await redrawPortrait(); save(); } catch (e) { /* the portrait waits for the next volume */ }
+}
+async function redrawPortrait() {
+  const o = await engineCall("portrait");
+  S.portrait.summary = String(o.portrait);
+  S.portrait.revised = false;
+  if (o.next) S.portrait.next = String(o.next);
+}
+
+/* ------------------------------------------------------------------ *
+ *  Rendering                                                          *
+ * ------------------------------------------------------------------ */
+const $ = s => document.querySelector(s);
+const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const paras = t => String(t || "").split(/\n\s*\n|\n/).filter(x => x.trim()).map(x => `<p>${esc(x.trim())}</p>`).join("");
+
+function entryEl(e) {
+  if (e.t === "ledger" && !S.settings.showLedger) return null;
+  const d = document.createElement("div");
+  d.className = "e e-" + e.t;
+  if (e.t === "you") d.innerHTML = `<span class="caret">&gt;</span>${esc(e.text)}`;
+  else if (e.t === "place") d.innerHTML = `<b>Volume ${esc(e.n || "")}</b> &nbsp;·&nbsp; ${esc(e.text)}`;
+  else if (e.t === "ledger") d.innerHTML = `<details><summary>What passed between you</summary>${ledgerHTML(e.data, e.n)}</details>`;
+  else d.innerHTML = paras(e.text);
+  return d;
+}
+function ledgerHTML(items, n) {
+  return (items || []).map(x => `<div class="lg">
+    ${x.moment ? `<p><b>${esc(x.moment)}</b></p>` : ""}${x.note ? `<p>${esc(x.note)}</p>` : ""}${x.question ? `<p class="q">${esc(x.question)}</p>` : ""}
+    ${n && (x.question || x.moment) ? `<button class="btn ansLink" type="button" data-answer="${esc(n)}" data-moment="${esc(x.moment)}">Answer</button>` : ""}
+  </div>`).join("");
+}
+function startAnswer(n, moment) {
+  openDrawer("cat");
+  const t = $("#answer");
+  t.value = `About Volume ${n}${moment ? `, “${moment}”` : ""}: `;
+  setTimeout(() => { t.scrollIntoView({ behavior: "smooth", block: "center" }); t.focus(); t.setSelectionRange(t.value.length, t.value.length); }, 50);
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest && e.target.closest("[data-answer]");
+  if (b) startAnswer(b.dataset.answer, b.dataset.moment);
+});
+function renderStory() {
+  const st = $("#story"); st.innerHTML = "";
+  S.log.forEach(e => { const el = entryEl(e); if (el) st.appendChild(el); });
+}
+function appendFrom(i) {
+  const st = $("#story");
+  S.log.slice(i).forEach(e => { const el = entryEl(e); if (el) st.appendChild(el); });
+}
+function scrollEnd() { requestAnimationFrame(() => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" })); }
+
+let thinkingEl = null;
+function setBusy(on, label) {
+  busy = on;
+  if (on && !thinkingEl) {
+    thinkingEl = document.createElement("div");
+    thinkingEl.className = "e thinking";
+    thinkingEl.setAttribute("role", "status");
+    thinkingEl.innerHTML = `<span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="lbl">${esc(label || "")}</span>`;
+    if (!label) thinkingEl.setAttribute("aria-label", "Waiting");
+    $("#story").appendChild(thinkingEl); scrollEnd();
+  } else if (!on && thinkingEl) { thinkingEl.remove(); thinkingEl = null; }
+  $("#input").placeholder = on ? "…" : "What do you do or say?";
+  updateControls();
+}
+
+function phase() {
+  if (!S.scene) return S.count === 0 && !S.log.length ? "welcome" : "next";
+  if (!S.scene.ended) return "scene";
+  if (!S.scene.closed) return "closing";
+  return "next";
+}
+
+function updateControls() {
+  const ph = phase();
+  $("#welcome").classList.toggle("hidden", ph !== "welcome");
+  $("#dock").classList.toggle("hidden", ph === "welcome");
+  const inScene = ph === "scene";
+  $("#form").classList.toggle("hidden", !inScene);
+  $("#aux").classList.toggle("hidden", !inScene);
+  $("#goon").classList.toggle("hidden", inScene);
+  $("#goonBtn").textContent = ph === "closing" ? "Close this volume" : "Go on";
+  ["#input", "#send", "#waitBtn", "#leaveBtn", "#goonBtn", "#begin"].forEach(s => { $(s).disabled = busy; });
+  $("#vol").textContent = S.count ? `volume ${S.count}` : "";
+  if (inScene && !busy) setTimeout(() => { if (document.activeElement === document.body) $("#input").focus(); }, 0);
+}
+
+function showError(err, retry) {
+  const d = document.createElement("div");
+  d.className = "e e-note";
+  const canSkip = phase() === "scene" || phase() === "closing";
+  d.innerHTML = `<div>${esc(err && err.message || err)}</div><div class="row"><button class="btn" type="button" data-r>Try again</button>${canSkip ? `<button class="btn" type="button" data-k>Skip this meeting</button>` : ""}<button class="btn" type="button" data-s>Settings</button></div>`;
+  d.querySelector("[data-r]").onclick = () => { d.remove(); retry(); };
+  d.querySelector("[data-s]").onclick = () => openDrawer("set");
+  const k = d.querySelector("[data-k]");
+  if (k) k.onclick = () => {
+    d.remove();
+    if (S.scene) { S.scene.ended = true; S.scene.closed = true; }
+    S.log.push({ t: "trans", text: "You let that one go. It won't go in the catalogue." });
+    save(); appendFrom(S.log.length - 1); updateControls(); scrollEnd();
+  };
+  $("#story").appendChild(d); scrollEnd();
+}
+
+async function run(action, label) {
+  if (busy) return;
+  const before = S.log.length;
+  setBusy(true, label);
+  try {
+    await action();
+    setBusy(false);
+    appendFrom(before);
+    scrollEnd();
+    // a scene that has just ended closes itself
+    if (phase() === "closing") return run(closeScene, "Closing the volume");
+  } catch (e) {
+    setBusy(false);
+    showError(e, () => run(action, label));
+  }
+  updateControls();
+}
+
+function ready() {
+  const p = S.settings.provider;
+  if (p === "claudeai") return !!sampleFn;
+  const cfg = PROVIDERS[p];
+  const model = (S.settings.models[p] || cfg.def || "").trim();
+  if (!model) return false;
+  if (p === "custom") return !!(S.settings.baseUrl || "").trim();
+  return !!(KEYS[p] || "").trim();
+}
+
+/* ------------------------------------------------------------------ *
+ *  Settings & catalogue drawers                                       *
+ * ------------------------------------------------------------------ */
+function openDrawer(which) {
+  $("#shade").classList.remove("hidden");
+  $("#setDrawer").classList.toggle("hidden", which !== "set");
+  $("#catDrawer").classList.toggle("hidden", which !== "cat");
+  if (which === "set") fillSettings();
+  if (which === "cat") fillCatalogue();
+}
+function closeDrawers() {
+  $("#shade").classList.add("hidden");
+  $("#setDrawer").classList.add("hidden");
+  $("#catDrawer").classList.add("hidden");
+}
+
+function fillProviderSelect() {
+  const sel = $("#provider"); sel.innerHTML = "";
+  const order = MODE === "server" ? ["openrouter", "anthropic", "openai", "mistral"] : Object.keys(PROVIDERS);
+  order.map(id => [id, PROVIDERS[id]]).forEach(([id, p]) => {
+    if (MODE === "server" && (p.hosted || id === "custom")) return;
+    if (p.hosted && !HOSTED) return;
+    const o = document.createElement("option");
+    o.value = id; o.textContent = p.label;
+    if (HOSTED && !p.hosted) { o.disabled = true; o.textContent += " (standalone page only)"; }
+    sel.appendChild(o);
+  });
+}
+function fillSettings() {
+  fillProviderSelect();
+  $("#provider").value = S.settings.provider;
+  $("#showLedger").checked = !!S.settings.showLedger;
+  $("#remember").checked = !!S.settings.remember;
+  $("#tier").value = S.settings.tier || "default";
+  $("#setMsg").textContent = ""; $("#modelsMsg").textContent = "";
+  $("#hostHint").textContent = MODE === "server"
+    ? "Sign in with OpenRouter to play on your own OpenRouter credit, or paste an API key from Anthropic, OpenAI or Mistral. Each turn passes through the Off Script server to the provider you choose; your key isn't stored there."
+    : HOSTED
+    ? (sampleFn ? "On claude.ai, the strangers run on your own claude.ai account. To use an API key from Anthropic, OpenAI, Mistral or another provider, open the standalone copy of this page instead." : "This view can't reach Claude. Open the page from claude.ai, or use the standalone copy with your own API key.")
+    : "Bring your own key. Each turn is a call to the provider you choose, billed to your account with them.";
+  providerFields();
+}
+function providerFields() {
+  const p = $("#provider").value, cfg = PROVIDERS[p] || {};
+  $("#tierBox").classList.toggle("hidden", p !== "claudeai");
+  $("#keyBox").classList.toggle("hidden", p === "claudeai");
+  $("#modelBox").classList.toggle("hidden", p === "claudeai");
+  $("#baseBox").classList.toggle("hidden", p !== "custom");
+  $("#apikey").value = KEYS[p] || "";
+  $("#apikey").placeholder = cfg.keyHint ? `Paste your key (${cfg.keyHint})` : "Paste your key";
+  $("#model").value = S.settings.models[p] || cfg.def || "";
+  $("#model").placeholder = p === "openrouter" ? "provider/model — press Load my models" : "model name";
+  $("#baseurl").value = S.settings.baseUrl || "";
+  $("#modelList").innerHTML = "";
+  const serverOR = MODE === "server" && p === "openrouter";
+  $("#orBox").classList.toggle("hidden", !serverOR);
+  if (serverOR) {
+    const signedIn = !!(KEYS.openrouter || "").trim();
+    $("#orStatus").textContent = signedIn ? "Signed in. Turns use your OpenRouter credit." : "You'll go to OpenRouter to approve, then come straight back here.";
+    $("#orSignOut").classList.toggle("hidden", !signedIn);
+    $("#apikeyLabel").textContent = "Or paste an OpenRouter key";
+  } else $("#apikeyLabel").textContent = "API key";
+  $("#keyHint").textContent = MODE === "server"
+    ? "Your key travels with each turn to the Off Script server, which passes it to the provider and doesn't store it. Calls are billed to your account with them."
+    : "The key goes only from this page to the provider you chose. Calls are billed to your account with them.";
+}
+function readSettings() {
+  const p = $("#provider").value;
+  S.settings.provider = p;
+  S.settings.showLedger = $("#showLedger").checked;
+  S.settings.remember = $("#remember").checked;
+  S.settings.tier = $("#tier").value;
+  if (p !== "claudeai") {
+    KEYS[p] = $("#apikey").value.trim();
+    S.settings.models[p] = $("#model").value.trim();
+    if (p === "custom") S.settings.baseUrl = $("#baseurl").value.trim();
+  }
+}
+
+function fillCatalogue() {
+  $("#portrait").innerHTML = S.portrait.summary
+    ? `<div class="portrait">${S.portrait.revised ? `<div class="changed">Revised after your answer</div>` : ""}${paras(S.portrait.summary)}${S.portrait.next ? `<p class="hint" style="margin-top:.6em">Next, the library means to: ${esc(S.portrait.next)}</p>` : ""}</div>`
+    : `<p class="hint">Nothing yet. The library learns from your meetings.</p>`;
+  $("#answerBox").classList.toggle("hidden", !S.portrait.summary);
+  $("#thread").innerHTML = (S.answers || []).slice(-8).map(a => `
+    <div class="ans ${a.who === "you" ? "you" : "lib"}">
+      <div class="who">${a.who === "you" ? "You" : "The library"}</div>
+      <div class="txt">${a.who === "you" ? esc(a.text) : paras(a.text)}</div>
+    </div>`).join("");
+  const list = $("#catList");
+  if (!S.catalogue.length) { list.innerHTML = `<p class="hint">No one yet.</p>`; return; }
+  list.innerHTML = S.catalogue.slice().reverse().map(c => `
+    <div class="cat-item">
+      <div class="m">Volume ${esc(c.n)} · ${esc(c.place)}</div>
+      <div class="t">${esc(c.title)}</div>
+      <div class="ep">${esc(c.epilogue)}</div>
+      ${c.ledger && c.ledger.length ? `<details><summary>What passed between you</summary>${ledgerHTML(c.ledger, c.n)}</details>` : ""}
+      <button class="btn ansLink" type="button" data-vol="${esc(c.n)}">Answer about this volume</button>
+    </div>`).join("");
+  list.querySelectorAll("[data-vol]").forEach(b => b.onclick = () => {
+    const c = S.catalogue.find(x => String(x.n) === b.dataset.vol);
+    const t = $("#answer");
+    t.value = `About Volume ${c.n} (${c.title}): `;
+    t.scrollIntoView({ behavior: "smooth", block: "center" });
+    t.focus(); t.setSelectionRange(t.value.length, t.value.length);
+  });
+}
+
+/* ------------------------------------------------------------------ *
+ *  Answering the library                                              *
+ * ------------------------------------------------------------------ */
+let answering = false;
+async function sendAnswer() {
+  const text = $("#answer").value.trim();
+  if (answering) return;
+  if (!text) { $("#answerMsg").textContent = "Write your answer first."; return; }
+  if (busy) { $("#answerMsg").textContent = "The game is busy (a turn or the next volume is on its way). Send again once it's done."; return; }
+  if (!ready()) { $("#answerMsg").textContent = "Choose a model in Settings first."; return; }
+  answering = true; $("#sendAnswer").disabled = true; $("#answerMsg").textContent = "The library is reading…";
+  try {
+    const r = await engineCall("answer", { text });
+    S.answers = S.answers || [];
+    S.answers.push({ who: "you", text, when: new Date().toISOString() });
+    S.stats = S.stats || { turns: 0, volumes: 0, answers: 0 };
+    S.stats.answers += 1;
+    S.answers.push({ who: "library", text: String(r.reply), when: new Date().toISOString() });
+    if (S.answers.length > 60) S.answers = S.answers.slice(-60);
+    const changed = r.changed === true || r.changed === "true";
+    if (changed && r.portrait) { S.portrait.summary = String(r.portrait); S.portrait.revised = true; }
+    if (changed && r.next) S.portrait.next = String(r.next);
+    save();
+    $("#answer").value = "";
+    $("#answerMsg").textContent = changed ? "The library revised its portrait." : "";
+    fillCatalogue();
+  } catch (e) {
+    $("#answerMsg").textContent = e.message;
+  }
+  answering = false; $("#sendAnswer").disabled = false;
+}
+
+/* ------------------------------------------------------------------ *
+ *  Wiring                                                             *
+ * ------------------------------------------------------------------ */
+function wire() {
+  $("#openSet").onclick = () => openDrawer("set");
+  $("#openCat").onclick = () => openDrawer("cat");
+  $("#welcomeSet").onclick = () => openDrawer("set");
+  $("#shade").onclick = closeDrawers;
+  document.querySelectorAll("[data-close]").forEach(b => b.onclick = closeDrawers);
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closeDrawers(); });
+
+  $("#provider").onchange = providerFields;
+  $("#orSignIn").onclick = () => { readSettings(); save({ settingsOnly: true }); startOpenRouterSignIn(); };
+  $("#orSignOut").onclick = () => { KEYS.openrouter = ""; save({ settingsOnly: true }); providerFields(); $("#setMsg").textContent = "Signed out of OpenRouter in this browser."; };
+  $("#sendAnswer").onclick = sendAnswer;
+  $("#answer").addEventListener("keydown", e => { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); sendAnswer(); } });
+  $("#saveSet").onclick = () => {
+    readSettings(); save({ settingsOnly: true }); renderStory(); updateControls();
+    $("#setMsg").textContent = ready() ? "Saved." : "Saved, but something is still missing.";
+  };
+  $("#loadModels").onclick = async () => {
+    readSettings();
+    $("#modelsMsg").textContent = "Loading…";
+    try {
+      const ids = await listModels();
+      $("#modelList").innerHTML = ids.map(id => `<option value="${esc(id)}">`).join("");
+      $("#modelsMsg").textContent = ids.length ? `${ids.length} models. Click the field to choose.` : "No models listed.";
+    } catch (e) { $("#modelsMsg").textContent = e.message; }
+  };
+
+  $("#copySave").onclick = async () => {
+    const txt = JSON.stringify(S);
+    $("#saveText").value = txt;
+    try { await navigator.clipboard.writeText(txt); $("#copyMsg").textContent = "Copied. Your API key is not included."; }
+    catch (e) { $("#saveText").select(); $("#copyMsg").textContent = "Select the text below and copy it."; }
+  };
+  $("#saveFile").onchange = async e => {
+    const f = e.target.files && e.target.files[0]; if (!f) return;
+    $("#saveText").value = await f.text();
+  };
+  $("#loadSave").onclick = () => {
+    try {
+      const s = JSON.parse($("#saveText").value);
+      if (!s || s.v !== 1 || !Array.isArray(s.log)) throw new Error();
+      const settings = S.settings;
+      S = Object.assign(fresh(settings), s, { settings, stats: maxStats(S.stats, s.stats) });
+      save(); renderStory(); updateControls();
+      $("#loadMsg").textContent = `Loaded: ${S.catalogue.length} people in the catalogue.`;
+    } catch (e) { $("#loadMsg").textContent = "That doesn't look like a save from this game."; }
+  };
+  let resetArmed = 0;
+  $("#reset").onclick = () => {
+    if (Date.now() - resetArmed > 5000) { resetArmed = Date.now(); $("#reset").textContent = "Click again to erase everything"; setTimeout(() => $("#reset").textContent = "Start over", 5000); return; }
+    const keepStats = S.stats; S = fresh(S.settings); S.stats = keepStats || S.stats; save(); renderStory(); updateControls(); closeDrawers();
+    $("#reset").textContent = "Start over";
+  };
+
+  $("#begin").onclick = () => {
+    if (!ready()) { openDrawer("set"); $("#setMsg").textContent = "Choose a provider and add a key to begin."; return; }
+    run(nextEncounter, "Finding the next volume");
+  };
+  $("#goonBtn").onclick = () => {
+    if (phase() === "closing") return run(closeScene, "Closing the volume");
+    if (!ready()) { openDrawer("set"); return; }
+    run(nextEncounter, "Finding the next volume");
+  };
+  // No <form> submission: claude.ai's sandbox blocks it silently.
+  $("#input").addEventListener("keydown", e => {
+    if (e.key === "Enter" && !e.isComposing) { e.preventDefault(); submitInput(); }
+  });
+  $("#send").onclick = () => submitInput();
+  function submitInput() {
+    const v = $("#input").value.trim();
+    if (!v || busy || phase() !== "scene") return;
+    $("#input").value = "";
+    // echo immediately so the player sees their line while the stranger thinks
+    const echo = entryEl({ t: "you", text: v }); echo.dataset.echo = "1"; $("#story").appendChild(echo);
+    run(async () => {
+      try { await takeTurn(v); }
+      catch (err) { echo.remove(); $("#input").value = v; throw err; }
+      echo.remove();
+    });
+  }
+  $("#waitBtn").onclick = () => { $("#input").value = "wait"; submitInput(); };
+  $("#leaveBtn").onclick = () => { $("#input").value = "leave"; submitInput(); };
+}
+
+function b64url(bytes) { let s = ""; bytes.forEach(b => { s += String.fromCharCode(b); }); return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); }
+async function startOpenRouterSignIn() {
+  const verifier = b64url(crypto.getRandomValues(new Uint8Array(48)));
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(verifier));
+  try { sessionStorage.setItem("offscript.or.verifier", verifier); } catch (e) {}
+  const cb = location.origin + location.pathname;
+  location.href = `https://openrouter.ai/auth?callback_url=${encodeURIComponent(cb)}&code_challenge=${b64url(new Uint8Array(digest))}&code_challenge_method=S256`;
+}
+function pickModel(ids) {
+  ids = ids.filter(i => !i.includes(":"));   // skip variants such as ":batch", ":free", ":online"
+  const prefs = [/^anthropic\/claude-sonnet/, /^anthropic\/claude-opus/, /^openai\/gpt-5(?![-.]?(nano|mini))/, /^openai\/gpt-5/, /^mistralai\/mistral-large/];
+  for (const re of prefs) { const hit = ids.filter(i => re.test(i)).sort().pop(); if (hit) return hit; }
+  return ids[0] || "";
+}
+async function finishOpenRouterSignIn() {
+  const u = new URL(location.href);
+  const code = u.searchParams.get("code");
+  if (!code) return false;
+  u.searchParams.delete("code");
+  history.replaceState(null, "", u.pathname + u.search + u.hash);
+  let verifier = null;
+  try { verifier = sessionStorage.getItem("offscript.or.verifier"); sessionStorage.removeItem("offscript.or.verifier"); } catch (e) {}
+  if (!verifier) { $("#welcomeNote").textContent = "Signing in with OpenRouter didn't finish in this tab. Try again from Settings."; return false; }
+  try {
+    const res = await fetch(API_BASE + "/api/openrouter/exchange", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ code, code_verifier: verifier }) });
+    const d = await res.json().catch(() => null);
+    if (!res.ok || !d || !d.key) throw new Error((d && d.error) || "no key");
+    KEYS.openrouter = d.key;
+    S.settings.provider = "openrouter";
+    S.settings.remember = true;
+    save({ settingsOnly: true });
+    try { const m = pickModel(await listModels()); if (m && !S.settings.models.openrouter) { S.settings.models.openrouter = m; save({ settingsOnly: true }); } } catch (e) {}
+    return true;
+  } catch (e) {
+    $("#welcomeNote").textContent = "Signing in with OpenRouter didn't finish. Try again from Settings.";
+    return false;
+  }
+}
+
+async function detectHost() {
+  const h = location.hostname || "";
+  const likely = /claude|anthropic/i.test(h);
+  for (let i = 0; i < (likely ? 30 : 1); i++) {
+    if (window.claude && typeof window.claude.use === "function") return true;
+    await sleep(100);
+  }
+  return false;
+}
+
+const THEMEKEY = "secondperson.theme";
+function systemDark() { try { return window.matchMedia("(prefers-color-scheme: dark)").matches; } catch (e) { return false; } }
+function applyTheme(t) {
+  if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+  else document.documentElement.removeAttribute("data-theme");
+  const dark = t ? t === "dark" : systemDark();
+  $("#themeToggle").setAttribute("aria-checked", dark ? "true" : "false");
+}
+function initTheme() {
+  let t = null; try { t = localStorage.getItem(THEMEKEY); } catch (e) {}
+  applyTheme(t);
+  $("#themeToggle").onclick = () => {
+    const dark = $("#themeToggle").getAttribute("aria-checked") !== "true";
+    const t2 = dark ? "dark" : "light";
+    applyTheme(t2);
+    try { localStorage.setItem(THEMEKEY, t2); } catch (e) {}
+  };
+  try { window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { let t3 = null; try { t3 = localStorage.getItem(THEMEKEY); } catch (e) {} if (!t3) applyTheme(null); }); } catch (e) {}
+}
+
+async function init() {
+  initTheme();
+  $("#build").textContent = "Build " + BUILD;
+  try { console.info("Off Script build", BUILD); } catch (e) {}
+  if (S.scene && S.scene.closed) {
+    const c = S.catalogue.find(x => x.id === S.scene.id);
+    if (c && !c.transcript) { c.transcript = sceneTextLocal(S.scene).slice(0, 9000); c.stranger = S.scene.stranger; save(); }
+  }
+  wire();
+  renderStory();
+  updateControls();
+  scrollEnd();
+  HOSTED = MODE === "server" ? false : await detectHost();
+  if (MODE === "server") {
+    setSync("local");
+    if (!PROVIDERS[S.settings.provider] || S.settings.provider === "claudeai" || S.settings.provider === "custom") { S.settings.provider = "openrouter"; save({ settingsOnly: true }); }
+    const m = S.settings.models.openrouter || "";
+    if (/:batch$/.test(m)) { S.settings.models.openrouter = m.replace(/:batch$/, ""); save({ settingsOnly: true }); }
+    const signedIn = await finishOpenRouterSignIn();
+    $("#countNote").textContent = "To see how much the game is played, the server counts turns and meetings. It never stores what you type.";
+    $("#welcomeNote").textContent = signedIn ? "Signed in with OpenRouter. You're ready."
+      : ready() ? ""
+      : "To play, sign in with OpenRouter (turns use your OpenRouter credit), or paste an API key from Anthropic, OpenAI or Mistral in Settings.";
+  } else if (HOSTED) {
+    $("#welcomeNote").textContent = "Connecting…";
+    await getSample();
+    if (sampleFn) { if (S.settings.provider !== "claudeai") { S.settings.provider = "claudeai"; save({ settingsOnly: true }); } }
+    $("#begin").disabled = true;
+    await remoteInit();
+    $("#begin").disabled = false;
+    $("#countNote").textContent = "To see how much the game is played, this page counts turns and meetings. It never stores what you type anywhere but your own save.";
+    $("#welcomeNote").textContent = sampleFn
+      ? "On claude.ai, the strangers run on your own claude.ai account; the first time, you'll be asked to allow it."
+      : "This view can't reach Claude. Open it from claude.ai, or use the standalone copy of the page with your own API key.";
+  } else {
+    setSync("local");
+    if (S.settings.provider === "claudeai") { S.settings.provider = "anthropic"; save({ settingsOnly: true }); }
+    $("#welcomeNote").textContent = ready()
+      ? ""
+      : "To play, choose a model provider and paste your own API key (Anthropic, OpenAI, Mistral, OpenRouter, or another OpenAI-compatible service).";
+  }
+  updateControls();
+  // open at the latest volume, after fonts and layout settle
+  const jump = () => window.scrollTo(0, document.body.scrollHeight);
+  jump(); setTimeout(jump, 250); try { document.fonts && document.fonts.ready.then(jump); } catch (e) {}
+}
+
+init();
+})();
+</script>
+</body>
+</html>
