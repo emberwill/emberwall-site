@@ -61,6 +61,7 @@ main{flex:1;width:100%;max-width:700px;margin:0 auto;padding:28px 22px 160px}
 .e-ledger details[open] summary{margin-bottom:.6em}
 .e-ledger p{margin:.5em 0}
 .e-ledger b{font-weight:600}
+.evidence{margin:.6em 0;font-size:15px}.evidence summary{cursor:pointer;font-family:var(--mono);font-size:12.5px;color:var(--muted)}.evidence ul{margin:.4em 0 0 1.1em;padding:0}.evidence li{margin:.25em 0}
 .e-note{font-family:var(--mono);font-size:13.5px;color:var(--danger);border:1px dashed var(--danger);border-radius:8px;padding:10px 14px}
 .e-note .row{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap}
 .thinking{display:flex;align-items:center;gap:14px;padding:6px 0}
@@ -255,7 +256,7 @@ main{flex:1;width:100%;max-width:700px;margin:0 auto;padding:28px 22px 160px}
 <script>
 (() => {
 "use strict";
-const BUILD = "2026-11-17 · 0.2.2";
+const BUILD = "2026-11-17 · 0.3.0";
 const MODE = "server";   // "artifact": the page calls the model itself (claude.ai, or a key in the browser). "server": the Off Script server does.
 
 const API_BASE = ((document.querySelector('meta[name="offscript-api"]') || {}).content || "").replace(/\/+$/, "");
@@ -518,7 +519,7 @@ const MAX_TURNS = 18;
 // What the engine needs to know: the portrait, where you are, the recent catalogue (last five in full), your answers.
 function ctxBase() {
   const cat = S.catalogue.slice(-12).map((c, i, a) => i >= a.length - 5 ? c : { n: c.n, title: c.title, place: c.place });
-  return { portrait: { summary: S.portrait.summary, next: S.portrait.next }, world: S.settings.world || "mixed", count: S.count, place: S.place, atPlace: S.atPlace, catalogue: cat, answers: (S.answers || []).slice(-8) };
+  return { portrait: { summary: S.portrait.summary, evidence: S.portrait.evidence || [], next: S.portrait.next }, world: S.settings.world || "mixed", count: S.count, place: S.place, atPlace: S.atPlace, catalogue: cat, answers: (S.answers || []).slice(-8) };
 }
 function sceneForEngine(sc) { return { place: sc.place, stranger: sc.stranger, opening: sc.opening, turns: sc.turns }; }
 function sceneTextLocal(sc) {
@@ -592,6 +593,7 @@ async function closeScene() {
 async function redrawPortrait() {
   const o = await engineCall("portrait");
   S.portrait.summary = String(o.portrait);
+  S.portrait.evidence = Array.isArray(o.evidence) ? o.evidence.map(String) : [];
   S.portrait.revised = false;
   if (o.next) S.portrait.next = String(o.next);
 }
@@ -804,7 +806,7 @@ function readSettings() {
 
 function fillCatalogue() {
   $("#portrait").innerHTML = S.portrait.summary
-    ? `<div class="portrait">${S.portrait.revised ? `<div class="changed">Revised after your answer</div>` : ""}${paras(S.portrait.summary)}${S.portrait.next ? `<p class="hint" style="margin-top:.6em">Next, the library means to: ${esc(S.portrait.next)}</p>` : ""}</div>`
+    ? `<div class="portrait">${S.portrait.revised ? `<div class="changed">Revised after your answer</div>` : ""}${paras(S.portrait.summary)}${(S.portrait.evidence || []).length ? `<details class="evidence"><summary>What this rests on</summary><ul>${S.portrait.evidence.map(x => `<li>${esc(x)}</li>`).join("")}</ul></details>` : ""}${S.portrait.next ? `<p class="hint" style="margin-top:.6em">Next, the library means to: ${esc(S.portrait.next)}</p>` : ""}</div>`
     : `<p class="hint">Nothing yet. The library learns from your meetings.</p>`;
   $("#answerBox").classList.toggle("hidden", !S.portrait.summary);
   $("#thread").innerHTML = (S.answers || []).slice(-8).map(a => `
@@ -851,7 +853,7 @@ async function sendAnswer() {
     S.answers.push({ who: "library", text: String(r.reply), when: new Date().toISOString() });
     if (S.answers.length > 60) S.answers = S.answers.slice(-60);
     const changed = r.changed === true || r.changed === "true";
-    if (changed && r.portrait) { S.portrait.summary = String(r.portrait); S.portrait.revised = true; }
+    if (changed && r.portrait) { S.portrait.summary = String(r.portrait); S.portrait.revised = true; if (Array.isArray(r.evidence) && r.evidence.length) S.portrait.evidence = r.evidence.map(String); }
     if (changed && r.next) S.portrait.next = String(r.next);
     save();
     $("#answer").value = "";
