@@ -23,7 +23,7 @@ After each meeting, the game hands back a few moments with a plain question, suc
 
 ## Before you play
 
-- **You bring the model.** Sign in with OpenRouter, and your turns use your OpenRouter credit. Or paste an API key from Anthropic, OpenAI or Mistral. In my testing, a full meeting has cost well under a dollar.
+- **You bring the model.** Sign in with OpenRouter, and your turns use your OpenRouter credit. Or paste an API key from Anthropic, OpenAI or Mistral. In my testing, a meeting costs about a quarter, roughly what an arcade game used to.
 - **What you type goes to the model provider you choose,** under their terms. The game's server passes your turns along and counts how many are played, but it doesn't keep what you write or store your key.
 - **Your progress stays in your browser.** If you switch browsers or devices, you start fresh.
 - **It's an early version,** and it will sometimes stumble. If something goes wrong, or a stranger rings false, I'd like to hear about it: [will@emberwall.net](mailto:will@emberwall.net)
