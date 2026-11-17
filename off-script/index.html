@@ -172,6 +172,15 @@ main{flex:1;width:100%;max-width:700px;margin:0 auto;padding:28px 22px 160px}
 <aside class="drawer hidden" id="setDrawer" aria-label="Settings">
   <div class="top"><h2>Settings</h2><button class="btn" type="button" data-close>Close</button></div>
 
+  <h3>The world</h3>
+  <label for="world">How strangers tend to be</label>
+  <select id="world">
+    <option value="kind">Mostly kind</option>
+    <option value="mixed" selected>Mixed</option>
+    <option value="hard">Often hard work</option>
+  </select>
+  <p class="hint">Most people you meet will be easy company in any world. This sets how often you meet someone curt, presumptuous, unfair or plain unpleasant, if you want more practice with them, or less. Your first stranger is always gentle.</p>
+
   <h3>What runs the strangers</h3>
   <p class="hint" id="hostHint"></p>
   <label for="provider">Provider</label>
@@ -246,7 +255,7 @@ main{flex:1;width:100%;max-width:700px;margin:0 auto;padding:28px 22px 160px}
 <script>
 (() => {
 "use strict";
-const BUILD = "2026-11-17 · 0.1.6";
+const BUILD = "2026-11-17 · 0.2.0";
 const MODE = "server";   // "artifact": the page calls the model itself (claude.ai, or a key in the browser). "server": the Off Script server does.
 
 const API_BASE = ((document.querySelector('meta[name="offscript-api"]') || {}).content || "").replace(/\/+$/, "");
@@ -276,7 +285,7 @@ let KEYS = {};
 function fresh(settings) {
   return {
     v: 1,
-    settings: settings || { provider: MODE === "server" ? "openrouter" : "anthropic", models: {}, baseUrl: "", tier: "default", showLedger: true, remember: false },
+    settings: settings || { provider: MODE === "server" ? "openrouter" : "anthropic", models: {}, baseUrl: "", tier: "default", world: "mixed", showLedger: true, remember: false },
     portrait: { summary: "", next: "" },
     place: "", atPlace: 0, count: 0,
     scene: null,
@@ -509,7 +518,7 @@ const MAX_TURNS = 18;
 // What the engine needs to know: the portrait, where you are, the recent catalogue (last five in full), your answers.
 function ctxBase() {
   const cat = S.catalogue.slice(-12).map((c, i, a) => i >= a.length - 5 ? c : { n: c.n, title: c.title, place: c.place });
-  return { portrait: { summary: S.portrait.summary, next: S.portrait.next }, count: S.count, place: S.place, atPlace: S.atPlace, catalogue: cat, answers: (S.answers || []).slice(-8) };
+  return { portrait: { summary: S.portrait.summary, next: S.portrait.next }, world: S.settings.world || "mixed", count: S.count, place: S.place, atPlace: S.atPlace, catalogue: cat, answers: (S.answers || []).slice(-8) };
 }
 function sceneForEngine(sc) { return { place: sc.place, stranger: sc.stranger, opening: sc.opening, turns: sc.turns }; }
 function sceneTextLocal(sc) {
@@ -746,6 +755,7 @@ function fillSettings() {
   $("#showLedger").checked = !!S.settings.showLedger;
   $("#remember").checked = !!S.settings.remember;
   $("#tier").value = S.settings.tier || "default";
+  $("#world").value = S.settings.world || "mixed";
   $("#setMsg").textContent = ""; $("#modelsMsg").textContent = "";
   $("#hostHint").textContent = MODE === "server"
     ? "Sign in with OpenRouter to play on your own OpenRouter credit, or paste an API key from Anthropic, OpenAI or Mistral. Each turn passes through the Off Script server to the provider you choose; your key isn't stored there."
@@ -784,6 +794,7 @@ function readSettings() {
   S.settings.showLedger = $("#showLedger").checked;
   S.settings.remember = $("#remember").checked;
   S.settings.tier = $("#tier").value;
+  S.settings.world = $("#world").value;
   if (p !== "claudeai") {
     KEYS[p] = $("#apikey").value.trim();
     S.settings.models[p] = $("#model").value.trim();
