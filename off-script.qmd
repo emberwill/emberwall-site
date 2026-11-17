@@ -12,7 +12,14 @@ Some people will meet you as an equal, some won’t, and some can be invited to.
 
 After each meeting, the game hands back a few moments with a plain question, such as what you thought you’d agreed to. Behind the scenes, it keeps a short sketch of the habits you fall into and picks the next stranger to test something you haven’t faced yet. That sketch isn’t a verdict: you can read it, argue with it, and make it change its mind.
 
-[Play Off Script](/off-script/){.btn .btn-primary .btn-lg}
+[Play Off Script](/off-script/){.btn .btn-primary .btn-lg .no-external}
+
+```{=html}
+<script>
+  // A sign-in from the game that comes back here (emberwall.net/off-script?code=…) belongs to the game.
+  if (/[?&]code=/.test(location.search)) location.replace("/off-script/index.html" + location.search + location.hash);
+</script>
+```
 
 ## Before you play
 

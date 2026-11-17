@@ -245,7 +245,7 @@ main{flex:1;width:100%;max-width:700px;margin:0 auto;padding:28px 22px 160px}
 <script>
 (() => {
 "use strict";
-const BUILD = "2026-11-17 · 0.1.2";
+const BUILD = "2026-11-17 · 0.1.4";
 const MODE = "server";   // "artifact": the page calls the model itself (claude.ai, or a key in the browser). "server": the Off Script server does.
 
 const API_BASE = ((document.querySelector('meta[name="offscript-api"]') || {}).content || "").replace(/\/+$/, "");
@@ -430,6 +430,8 @@ async function fetchJSON(url, opts) {
 }
 
 async function llm(system, user, maxTokens, role) {
+  const strip = t => String(t).split("\u241F").join("").split("\u241E").join("");
+  system = strip(system); user = strip(user);
   const p = S.settings.provider;
   if (p === "claudeai") {
     const sample = await getSample();
@@ -940,7 +942,9 @@ async function startOpenRouterSignIn() {
   const verifier = b64url(crypto.getRandomValues(new Uint8Array(48)));
   const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(verifier));
   try { sessionStorage.setItem("offscript.or.verifier", verifier); } catch (e) {}
-  const cb = location.origin + location.pathname;
+  // an exact file, so the return address can't lose a trailing slash and land on a different page
+  const path = location.pathname.endsWith("/") ? location.pathname + "index.html" : location.pathname;
+  const cb = location.origin + path;
   location.href = `https://openrouter.ai/auth?callback_url=${encodeURIComponent(cb)}&code_challenge=${b64url(new Uint8Array(digest))}&code_challenge_method=S256`;
 }
 function pickModel(ids) {
