@@ -26,3 +26,23 @@ You don't need to know anything about AI. If you've done audit, verification or 
 **The answer key** was written before any responses and will be published on **Friday 11 December 2026**. If fewer than three responses have arrived by Thursday 10 December 2026, the round is extended once, to Thursday 14 January 2027, and the key is published on Friday 15 January 2027. The extension depends only on how many responses have arrived, never on what they say. These dates were set before invitations went out. The key's SHA-256 is `b91b98aaccefbb88be8cd52f44520b9d7b71cd49072ef083eb6ff02e691f3948`, so you can check afterwards that it wasn't changed.
 
 Packet SHA-256 (zip): `2321c15f1454c816563465a0f64cb32bb1dc379897a1867b6c40cf7249b66932`
+
+```{=html}
+<script>
+/* Counts clicks on the packet download, the same way count.html counts page views:
+   the path only, no cookies. A click is not proof of a completed download. */
+(function () {
+  try {
+    if (!/(^|\.)emberwall\.net$/.test(location.hostname)) return;
+    document.querySelectorAll('a[href$="VERIFY-001-packet.zip"]').forEach(function (a) {
+      a.addEventListener("click", function () {
+        var body = JSON.stringify({ p: "/download/VERIFY-001-packet.zip", r: document.referrer || "" });
+        var url = "https://off-script-production.up.railway.app/api/hit";
+        if (navigator.sendBeacon) navigator.sendBeacon(url, new Blob([body], { type: "text/plain" }));
+        else fetch(url, { method: "POST", body: body, keepalive: true, mode: "no-cors" });
+      });
+    });
+  } catch (e) {}
+})();
+</script>
+```
