@@ -3,6 +3,7 @@ project:
   output-dir: _site
   resources:
     - off-script/
+    - cases/VERIFY-001-packet.zip
 
 website:
   title: "Emberwall"

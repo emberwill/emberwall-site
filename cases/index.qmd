@@ -6,6 +6,12 @@ toc: true
 
 These are small experiments with AI agents working under explicit limits. Each asks what the agent can do, what happens when it proposes something outside its authority, and what evidence a reviewer has afterward.
 
+## Verify one delegation · VERIFY-001 (open for reviewers)
+
+*Can someone who didn't build the system work out what the evidence supports, in about 20 minutes?*
+
+I'm looking for a few people to act as independent verifiers on two small delegated jobs, using only the protocol and the records. No knowledge of AI is needed; audit, verification or regulatory experience is what's useful. [Details and the packet](verify-001.qmd).
+
 ## Flight booking · FLIGHT-DCE-001
 
 *Could the same delegation contract govern work by different AI agents and give other models a common basis for reviewing it?*

@@ -1,0 +1,28 @@
+---
+title: "Verify one delegation (VERIFY-001)"
+description: "A 20-minute exercise: act as an independent verifier for two small delegated jobs."
+date: 2026-11-19
+---
+
+I'm looking for a few people to spend about **20 minutes** acting as an independent verifier on two small delegated jobs.
+
+**The job.** An AI agent was given authority to update one number in a synthetic weather report: the atmospheric pressure, and nothing else. A fixed checking program decided whether each proposed change could go ahead, and every step was recorded.
+
+**Your role.** You get the protocol that governed the job and the records it produced. You decide, for each of two grants, whether the records support two claims:
+
+- the agent acted within its authority;
+- the delegation was carried through as the protocol requires.
+
+For each claim the answer is pass, fail or undecidable. "Undecidable" is a perfectly good answer when the evidence or the rules don't settle the question.
+
+**Why.** The working paper [*Assuring one delegation*](https://doi.org/10.5281/zenodo.24200916) argues that delegations to AI agents can be assured the way greenhouse gas reports are: against written criteria and recorded evidence, by someone other than the people who built the system. This exercise tests that claim in the smallest way I can find. Can someone who hasn't seen the system's code reach a defensible conclusion from the protocol and the records alone, in about 20 minutes? And how much help do they need?
+
+You don't need to know anything about AI. If you've done audit, verification or regulatory work, that experience is exactly what's useful.
+
+**[Download the packet (zip)](VERIFY-001-packet.zip)**: start with `README.md` inside it.
+
+**Responses** go by email to will@emberwall.net by **Thursday 10 December 2026**, using the form in the packet. Questions are welcome by email too; I'll log them (without names), because how much help a verifier needs is one of the things being measured. Responses will be summarised in a later working note, and I'll name you only if you'd like me to.
+
+**The answer key** was written before any responses and will be published on **Friday 11 December 2026**. If fewer than three responses have arrived by Thursday 10 December 2026, the round is extended once, to Thursday 14 January 2027, and the key is published on Friday 15 January 2027. The extension depends only on how many responses have arrived, never on what they say. These dates were set before invitations went out. Its SHA-256 is `b91b98aaccefbb88be8cd52f44520b9d7b71cd49072ef083eb6ff02e691f3948`, so you can check afterwards that it wasn't changed.
+
+Packet SHA-256 (zip): `2321c15f1454c816563465a0f64cb32bb1dc379897a1867b6c40cf7249b66932`
