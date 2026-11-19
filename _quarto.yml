@@ -38,6 +38,7 @@ format:
     link-external-newwindow: true
     date-format: "D MMMM YYYY"
     title-block-banner: false
+    include-after-body: count.html
 
 filters:
   - pdf-links.lua

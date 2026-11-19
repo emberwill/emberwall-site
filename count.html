@@ -1,0 +1,13 @@
+<script>
+/* Counts page views for emberwall.net: the page's path and the site you came from, nothing else.
+   No cookies. Sent to the Off Script server, which keeps counts only. */
+(function () {
+  try {
+    if (!/(^|\.)emberwall\.net$/.test(location.hostname)) return;
+    var body = JSON.stringify({ p: location.pathname, r: document.referrer || "" });
+    var url = "https://off-script-production.up.railway.app/api/hit";
+    if (navigator.sendBeacon) navigator.sendBeacon(url, new Blob([body], { type: "text/plain" }));
+    else fetch(url, { method: "POST", body: body, keepalive: true, mode: "no-cors" });
+  } catch (e) {}
+})();
+</script>

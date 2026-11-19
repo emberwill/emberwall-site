@@ -256,7 +256,7 @@ main{flex:1;width:100%;max-width:700px;margin:0 auto;padding:28px 22px 160px}
 <script>
 (() => {
 "use strict";
-const BUILD = "2026-11-17 · 0.3.0";
+const BUILD = "2026-11-19 · 0.3.1";
 const MODE = "server";   // "artifact": the page calls the model itself (claude.ai, or a key in the browser). "server": the Off Script server does.
 
 const API_BASE = ((document.querySelector('meta[name="offscript-api"]') || {}).content || "").replace(/\/+$/, "");
@@ -1027,6 +1027,8 @@ async function init() {
   initTheme();
   $("#build").textContent = "Build " + BUILD;
   try { console.info("Off Script build", BUILD); } catch (e) {}
+  // Count the page view (counts only; see /api/hit on the server).
+  if (MODE === "server") { try { const body = JSON.stringify({ p: "/game", r: document.referrer || "" }); if (navigator.sendBeacon) navigator.sendBeacon(API_BASE + "/api/hit", new Blob([body], { type: "text/plain" })); else fetch(API_BASE + "/api/hit", { method: "POST", body, keepalive: true }); } catch (e) {} }
   if (S.scene && S.scene.closed) {
     const c = S.catalogue.find(x => x.id === S.scene.id);
     if (c && !c.transcript) { c.transcript = sceneTextLocal(S.scene).slice(0, 9000); c.stranger = S.scene.stranger; save(); }
