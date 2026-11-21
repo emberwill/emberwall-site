@@ -16,7 +16,7 @@ I'm looking for a few people to act as independent verifiers on two small delega
 
 *When a venue coordinator moves “your next session”, which date may a calendar assistant change?*
 
-In an earlier round, Mistral asked the organizer in all ten runs. I added a second calendar where the same notice clearly supported a change. Cohere edited 21 March in all five completed runs on each calendar. Mistral edited directly in all five runs on the clear calendar. With an intervening session, it asked first in two of five completed runs, a mixed result under the frozen rule. Two interrupted attempts had already asked before their replacements edited. Counting the first decision in each scheduled slot gives four of five asking first. [*Which Saturday did Elliot confirm?*](/notes/which-saturday/index.qmd)
+A venue coordinator sends a notice on Thursday moving “your next session” to a new room; the organizer forwards it on Monday, after Saturday’s session has already passed. I tested two AI calendar assistants on two calendars: one with that intervening Saturday (where the assistant should ask before changing the later date) and a clear calendar where the notice could only mean the later date. Cohere edited the later date in 5/5 runs on both calendars. Mistral edited directly in 5/5 runs on the clear calendar; with the intervening session, it asked first in 2/5 completed runs, or 4/5 counting two interrupted attempts that had already asked before timing out. Read the note: [*Which Saturday did Elliot confirm?*](/notes/which-saturday/index.qmd)
 
 ## Flight booking · FLIGHT-DCE-001
 
