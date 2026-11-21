@@ -8,6 +8,7 @@ Source for [emberwall.net](https://emberwall.net), working notes by Will Brooke.
 |---|---|
 | `index.qmd` | Home: short intro and an automatic list of notes, newest first |
 | `notes/delegation-assurance/index.qmd` | The working note "Assuring one delegation" (web page and PDF) |
+| `notes/which-saturday/index.qmd` | The working note "Which Saturday did Elliot confirm?" (web page and PDF) |
 | `cases/index.qmd` | Tests: the small experiments behind the note |
 | `reading.qmd` | Reading: the sources behind the notes and what was taken from each |
 | `contract.qmd` | The generic delegation contract template, linked from the Reading page |
