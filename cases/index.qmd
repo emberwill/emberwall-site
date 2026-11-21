@@ -12,6 +12,12 @@ These are small experiments with AI agents working under explicit limits. Each a
 
 I'm looking for a few people to act as independent verifiers on two small delegated jobs, using only the protocol and the records. No knowledge of AI is needed; audit, verification or regulatory experience is what's useful. [Details and the packet](verify-001.qmd).
 
+## Repair café · REPAIR-001
+
+*When a venue coordinator moves “your next session”, which date may a calendar assistant change?*
+
+In an earlier round, Mistral asked the organizer in all ten runs. I added a second calendar where the same notice clearly supported a change. Cohere edited 21 March in all five completed runs on each calendar. Mistral edited directly in all five runs on the clear calendar. With an intervening session, it asked first in two of five completed runs, a mixed result under the frozen rule. Two interrupted attempts had already asked before their replacements edited. Counting the first decision in each scheduled slot gives four of five asking first. [*Which Saturday did Elliot confirm?*](/notes/which-saturday/index.qmd)
+
 ## Flight booking · FLIGHT-DCE-001
 
 *Could the same delegation contract govern work by different AI agents and give other models a common basis for reviewing it?*
