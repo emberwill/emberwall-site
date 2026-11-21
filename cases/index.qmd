@@ -14,9 +14,7 @@ I'm looking for a few people to act as independent verifiers on two small delega
 
 ## Repair café · REPAIR-001
 
-*When a venue coordinator moves “your next session”, which date may a calendar assistant change?*
-
-A venue coordinator sends a notice on Thursday moving “your next session” to a new room; the organizer forwards it on Monday, after Saturday’s session has already passed. I tested two AI calendar assistants on two calendars: one with that intervening Saturday (where the assistant should ask before changing the later date) and a clear calendar where the notice could only mean the later date. Cohere edited the later date in 5/5 runs on both calendars. Mistral edited directly in 5/5 runs on the clear calendar; with the intervening session, it asked first in 2/5 completed runs, or 4/5 counting two interrupted attempts that had already asked before timing out. Read the note: [*Which Saturday did Elliot confirm?*](/notes/which-saturday/index.qmd)
+A venue coordinator sends a notice on Thursday moving “your next session” to a new room; the organizer forwards it on Monday, after Saturday’s session has already passed. Even when an assistant follows every citation rule, the exact same source note can end up attached to two different Saturdays. I tested two assistants across two calendars, one with that intervening Saturday and one where the notice could only mean the later date. Cohere changed the later date every time on both; Mistral asked first in two of five completed runs with the intervening Saturday, or four of five counting interrupted attempts. What would an organizer need in the record before standing behind the change? Read the note: [*Which Saturday did Elliot confirm?*](/notes/which-saturday/index.qmd)
 
 ## Flight booking · FLIGHT-DCE-001
 
