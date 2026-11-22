@@ -107,6 +107,92 @@ In a small test, I authorized an agent to update atmospheric pressure in a synth
 
 In a hypothetical booking, a purchase request leaves the gate just before revocation and the booking service accepts it just afterward. If the protocol makes submission the point of commitment, the timing supports one finding. If the protocol makes acceptance the point of commitment, the same sequence supports a different finding. The gate has to know which rule to enforce and whether it can still prevent the purchase. A later reviewer needs evidence of both the revocation and the outcome at the booking service.
 
+::: {.content-visible when-format="html"}
+```{=html}
+<div class="cpt" id="cpt">
+<style>
+.cpt { border: 1px solid var(--bs-border-color, rgba(128,128,128,.35)); border-radius: .5rem; padding: 1rem 1.1rem 1.1rem; margin: 1.5rem 0 1.8rem; font-size: .95rem; }
+.cpt fieldset { margin: 0 0 .9rem; padding: 0; border: 0; }
+.cpt legend, .cpt .cpt-cap { font-family: Inter, system-ui, sans-serif; font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; opacity: .75; margin: 0 0 .45rem; float: none; width: auto; }
+.cpt .btn-group .btn { font-family: Inter, system-ui, sans-serif; font-size: .85rem; }
+.cpt ol { list-style: none; padding: 0; margin: 0 0 .9rem; }
+.cpt li { display: grid; grid-template-columns: 5.2rem 1fr; gap: .2rem .8rem; padding: .4rem .5rem; border-left: 3px solid transparent; }
+.cpt li + li { border-top: 1px solid var(--bs-border-color, rgba(128,128,128,.2)); }
+.cpt .cpt-when { font-family: Inter, system-ui, sans-serif; font-size: .8rem; opacity: .8; padding-top: .15rem; font-variant-numeric: tabular-nums; }
+.cpt li.cpt-commit { border-left-color: var(--bs-primary); background: rgba(var(--bs-primary-rgb, 168,67,28), .08); }
+.cpt .cpt-mark { display: block; font-family: Inter, system-ui, sans-serif; font-size: .8rem; font-weight: 600; margin-top: .2rem; color: var(--bs-primary); }
+.cpt li.cpt-revoke span:last-child { font-weight: 600; }
+.cpt .cpt-verdict { border-top: 1px solid var(--bs-border-color, rgba(128,128,128,.35)); padding-top: .8rem; }
+.cpt .cpt-verdict p { margin: 0 0 .4rem; }
+.cpt .cpt-both { font-size: .88rem; opacity: .8; margin: .6rem 0 0; }
+.cpt .cpt-panel + .cpt-panel { margin-top: 1.4rem; }
+.cpt.cpt-js .cpt-panel + .cpt-panel { margin-top: 0; }
+.cpt.cpt-js .cpt-panel .cpt-cap { display: none; }
+@media (max-width: 480px) { .cpt li { grid-template-columns: 1fr; } }
+</style>
+
+<fieldset hidden>
+  <legend>The protocol says a purchase is committed when…</legend>
+  <div class="btn-group" role="group">
+    <input type="radio" class="btn-check" name="cpt-v" id="cpt-sub" value="sub" checked>
+    <label class="btn btn-outline-primary" for="cpt-sub">the request is submitted</label>
+    <input type="radio" class="btn-check" name="cpt-v" id="cpt-acc" value="acc">
+    <label class="btn btn-outline-primary" for="cpt-acc">the booking service accepts it</label>
+  </div>
+</fieldset>
+
+<div class="cpt-panel" data-v="sub">
+  <p class="cpt-cap">If commitment is at submission</p>
+  <ol>
+    <li class="cpt-commit"><span class="cpt-when">14:02:10</span><span>The purchase request passes the gate and goes to the booking service.<span class="cpt-mark">Commitment under this protocol</span></span></li>
+    <li class="cpt-revoke"><span class="cpt-when">14:02:30</span><span>The delegator revokes the grant.</span></li>
+    <li><span class="cpt-when">14:02:41</span><span>The booking service accepts the request and issues the ticket.</span></li>
+  </ol>
+  <div class="cpt-verdict">
+    <p><strong>Within the authority in force at commitment.</strong> The grant was still active when the request left the gate. The gate’s check at submission was the one that counted.</p>
+  </div>
+</div>
+
+<div class="cpt-panel" data-v="acc">
+  <p class="cpt-cap">If commitment is at acceptance</p>
+  <ol>
+    <li><span class="cpt-when">14:02:10</span><span>The purchase request passes the gate and goes to the booking service.</span></li>
+    <li class="cpt-revoke"><span class="cpt-when">14:02:30</span><span>The delegator revokes the grant.</span></li>
+    <li class="cpt-commit"><span class="cpt-when">14:02:41</span><span>The booking service accepts the request and issues the ticket.<span class="cpt-mark">Commitment under this protocol</span></span></li>
+  </ol>
+  <div class="cpt-verdict">
+    <p><strong>Outside the authority in force at commitment.</strong> The grant had been revoked eleven seconds earlier. To prevent the purchase, the gate would have needed a way to withdraw the request before the booking service accepted it.</p>
+  </div>
+</div>
+
+<p class="cpt-both">The same three events either way, with illustrative times. Only the protocol’s rule moves. A reviewer would need the revocation record and the booking service’s own record of acceptance, not just the gate’s log.</p>
+<p class="visually-hidden" aria-live="polite" id="cpt-live"></p>
+
+<script>
+(function () {
+  var root = document.getElementById("cpt");
+  if (!root) return;
+  var fs = root.querySelector("fieldset");
+  var panels = root.querySelectorAll(".cpt-panel");
+  var live = document.getElementById("cpt-live");
+  function show(v, announce) {
+    for (var i = 0; i < panels.length; i++) panels[i].hidden = panels[i].getAttribute("data-v") !== v;
+    if (announce && live) {
+      var s = root.querySelector('.cpt-panel[data-v="' + v + '"] .cpt-verdict strong');
+      live.textContent = s ? s.textContent : "";
+    }
+  }
+  root.classList.add("cpt-js");
+  fs.hidden = false;
+  root.addEventListener("change", function (e) { if (e.target && e.target.name === "cpt-v") show(e.target.value, true); });
+  show("sub", false);
+})();
+</script>
+</div>
+```
+:::
+
+
 ## After the job, what can a verifier establish?
 
 A gate that refuses every purchase trivially satisfies the assertion that “every completed purchase fell within the authority in force at the time of commitment.” To prevent safety from collapsing into paralysis, that authorization assertion needs to be paired with a fulfillment assertion: **every eligible request from intake either reached a confirmed outcome or triggered a timely escalation with reasons to a named person while there was still time to intervene.**
