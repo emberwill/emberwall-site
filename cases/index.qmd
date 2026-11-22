@@ -14,7 +14,7 @@ I'm looking for a few people to act as independent verifiers on two small delega
 
 ## Repair café · REPAIR-001
 
-A venue coordinator sends a notice on Thursday moving “your next session” to a new room; the organizer forwards it on Monday, after Saturday’s session has already passed. Even when an assistant follows every citation rule, the exact same source note can end up attached to two different Saturdays. I tested two assistants across two calendars, one with that intervening Saturday and one where the notice could only mean the later date. Cohere changed the later date every time on both; Mistral asked first in two of five completed runs with the intervening Saturday, or four of five counting interrupted attempts. What would an organizer need in the record before standing behind the change? Read the note: [*Which Saturday did Elliot confirm?*](/notes/which-saturday/index.qmd)
+A venue coordinator emails on Thursday, moving “your next session” to a new room. The organizer forwards it on Monday, after an extra Saturday session has already passed. Whether the later Saturday should move depends on when the extra session was booked, and the calendar’s booking history shows that on every read. I ran Cohere 60 times across two booking histories, half of the runs required to give a warrant before saving a change. In both histories, 29 of 30 runs moved the later Saturday. Every warrant passed the check, and none cited the booking history. Read the note: [*Two Ways to Book the Wrong Room*](/notes/which-saturday/index.qmd)
 
 ## Flight booking · FLIGHT-DCE-001
 
