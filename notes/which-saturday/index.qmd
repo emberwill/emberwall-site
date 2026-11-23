@@ -4,7 +4,7 @@ subtitle: "A worked case on practical delegation assurance"
 author: "Will Brooke"
 date: 2026-11-21
 version: "0.2"
-description: "An email about “your next session” reaches an AI calendar assistant four days late. Whether the 21st should move depends on when the 7th was booked. Did a check before saving help the assistant find out?"
+description: "When an email about an upcoming booked session arrives four days late, an AI calendar assistant has to reconstruct what was booked and when. This working note tests whether requiring a check before saving keeps the assistant from changing the wrong event."
 format-links: false
 format:
   html: default

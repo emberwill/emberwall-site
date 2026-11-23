@@ -11,6 +11,6 @@ toc: false
 page-layout: article
 ---
 
-I work on greenhouse-gas reporting and verification as a regulator. This site is where I ask a related question about AI agents. If I give an agent authority to do a job on someone else’s behalf, what do I need to establish before it acts?
+I work on greenhouse-gas reporting and verification as a regulator. This site is where I ask a related question about AI agents: when an agent acts on someone else’s behalf, what makes that delegation checkable—from setting the terms, to catching errors mid-job, to verifying what happened afterward?
 
 Each note is dated and versioned. The [Tests](cases/index.qmd) page summarizes the small experiments behind the notes. To get new notes by email, subscribe to [Ember Notes](https://buttondown.com/Willember).
