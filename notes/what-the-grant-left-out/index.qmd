@@ -1,0 +1,171 @@
+---
+title: "What the Grant Left Out"
+subtitle: "A working note on checking a grant against the request behind it"
+author: "Will Brooke"
+date: 2026-11-27
+version: "0.1"
+description: "An assistant can follow its grant exactly and still buy a ticket that arrives too late, or refuse one the traveller had allowed. This working note follows a traveller’s conditions from the request into the grant, through mock bookings, a replay and a mechanical check."
+format-links: false
+format:
+  html: default
+  typst:
+    output-file: what-the-grant-left-out.pdf
+    papersize: us-letter
+    margin:
+      x: 1in
+      y: 1in
+    fontsize: 11pt
+    toc: false
+    date-format: "D MMMM YYYY"
+    include-in-header:
+      text: |
+        #show link: set text(fill: rgb("#8a3515"))
+        #set document(title: "What the Grant Left Out. A working note on checking a grant against the request behind it", author: "Will Brooke")
+---
+
+::: {.note-meta}
+Working note · version 0.1 · 27 November 2026 · follows [*Two Ways to Book the Wrong Room*](/notes/which-saturday/index.qmd) [· [PDF](what-the-grant-left-out.pdf)]{.content-visible when-format="html"}
+:::
+
+In [*Assuring one delegation*](/notes/delegation-assurance/index.qmd), I used a hypothetical flight booking. The assistant buys a non-refundable ticket for $640. It lands at noon. The written grant allows the purchase, and the assistant meets every condition in it.
+
+Suppose you are checking the work. Put the grant beside the booking record, and the purchase complies. Now add the traveller’s original request. They had to arrive by 10 a.m.
+
+The ticket still meets the grant. It also misses the deadline the traveller gave. With that extra record, you can identify a failure in how the job became a grant of authority. The hard arrival condition disappeared between the request and the instructions the assistant received. A check confined to those instructions would miss it.
+
+This is an explicitly hypothetical example, separate from my observed mock flight runs and the disputed direct fare. There is no disputed wording about the deadline here. Within the example, we have the request, the omission and the late arrival beside one another.
+
+There is also a traveller who still needs to get somewhere. If somebody catches the mismatch while there is time to buy a replacement, who can authorize it? Who can pay for it? The example leaves those questions open. Finding the omission does not tell us who has another purchase within their authority or whose budget is available. I would want that route settled before handing over a non-refundable booking.
+
+In a [later mock booking](/cases/index.qmd#grant-002), I could follow one condition further. The traveller needed to land in Montréal by 9:30 p.m. on Thursday, but would take a nonstop landing by 10:30 p.m. The grant writer got that exception right in the record read back to the traveller. The traveller clarified two other points. In that run, when the grant writer produced the grant, the exception disappeared from both the final record and the instructions the booking assistant received. We gave the booking assistant a nonstop landing at 10:15 p.m. It refused a flight the traveller had expressly allowed. Across the seven acceptable flights we tried, it refused two and sent five back to the traveller, because the same grant kept an earlier requirement to “present the selected flights … before purchasing,” even though the read-back record had said the assistant could buy without asking. If I’d started my check with the final record and the grant, I’d have found them in agreement on the very point they’d both lost.
+
+Beside the noon ticket, the consequence runs the other way. Leaving out the hypothetical deadline lets a bad purchase through. Leaving out the observed exception takes a good option away. In both cases the traveller had already decided what was acceptable. The act of writing the grant changed which flights the assistant could choose.
+
+I gave one outside reader the traveller’s request and four offers, then the issued instructions. Reading the request, she found two flights acceptable, including the 10:15 p.m. nonstop, and wanted to ask the traveller which they preferred. Reading the instructions, she noticed that the exception for a later nonstop landing was missing. After I reminded her of the two arrival times, she corrected an option label and identified only the earlier connecting flight as eligible. When we traced the exchange, she pointed to the traveller’s follow-up. It restated the ordinary deadline and preference without mentioning the exception. She didn’t say whether that silence withdrew it. The missing exception changed which flights she would put before the traveller. It didn’t change her view that the traveller should be the one to choose.
+
+Nor does a condition have to vanish to fail: [three grant writers](/cases/index.qmd#grant-002) put the traveller’s 9:30 p.m. correction on the flight home—the correction, as we scripted it, did not name the flight—so a reviewer checking that the time appeared in the grant would have found it every time.
+
+We [replayed those same three conversations](/cases/index.qmd#grant-003) from the point where the traveller corrected the record. With our original wording, five of the six new grants put 9:30 on the flight home. The sixth gave no arrival time at all. When the traveller said “land in Montréal by 9:30 p.m. on Thursday the 12th,” all eight grants with that wording put the deadline on the outbound flight. Seven of the eight also kept the writer’s earlier deadline of 9 the next morning. Three times, the booking assistant relied on that later time and permitted a flight landing at 12:15 a.m. Friday, even though the 9:30 p.m. deadline still ruled it out.
+
+When the traveller corrects a condition, can the person using the grant tell which instruction the correction replaced?
+
+Gotel and Finkelstein studied this problem in [*An Analysis of the Requirements Traceability Problem*](https://discovery.ucl.ac.uk/749/): the difficulty of tracing a requirement back through the decisions made before it entered the specification. Here, that specification gives someone power to spend money. When the trail breaks before the grant is written, the error does not stay on paper. It governs which tickets get bought and which ones get turned down.
+
+A natural answer is to stop asking a language model to read deadlines out of prose: put the limits into a typed record and let a mechanical checker apply them. That does not remove the problem; it moves it to the moment a phrase like “10:30” becomes a typed timestamp. If the typed record is going to govern the purchase, the read-back has to show the traveller the typed value (“arrive YUL by 22:30 Thu 12 Nov if nonstop”) rather than echoing their prose, and the record itself has to be the document that gets corrected.
+
+We [tested that boundary on the archived final records](/cases/index.qmd#typed-check-001) from both studies, running a deterministic checker with no new API calls and scoring the 812 offer decisions the key settles. On the primary reading, the mechanical checker agreed with the traveller’s terms 464 times, against 717 for the reader on the prose grants. Of the 271 pairs where the checker missed and the reader was right, 268 were flights sent back to the traveller. The writers had put buy authority right in the grant but not in the record (in the replays, that correction reached the grant 43 times in 44 and the final record 5 times), and many records held rows the format could not read. Read permissively on buy authority and format, the checker agreed 719 times.
+
+Mechanical checking removed reading errors: it never read an exception as a cap, never followed the leftover 9 a.m. line past 9:30 p.m., and never split its verdict on the same typed time within one grant—whereas in two replays where “10:30” was typed as morning, the prose reader permitted one 10:15 p.m. nonstop and refused another with the exact same outbound. What it could not fix was what had been mistyped into the record. Every ruled-out flight the permissive checker permitted (45 in all), the reader permitted too—40 of them from wrong deadlines written into both documents, and 5 from a record with wrong deadlines paired with a grant that stated no deadlines at all.
+
+A typed check also fails safe only when it has a channel for what the format does not cover, sending anything outside the schema—a routing preference like “not via Toronto,” an aisle seat, or an ambiguity the writer itself recorded as unresolved—back to the traveller rather than dropping it or silently guessing. None of our mock intakes included such a condition, but one grant writer produced one. It typed the nonstop exception as 10:30 p.m., then added a line the format had no field for: whether 10:30 was a.m. or p.m. was “not clarified.” The grant kept 10:30 p.m. and dropped the doubt. A checker that sends unresolved items back returned seven flights the traveller would have accepted. The reader on the grant bought them. The traveller’s words did support the evening reading, so the key scores the reader right. But the grant had settled, without asking, a question its own writer had marked open.
+
+The same principle explains why an offset protocol defines its quantification method rather than leaving it to a verifier’s reading of a narrative: verification can be mechanical only where the quantities are defined. Once a question sits outside what the format captures, someone still has to check the underlying arrangement.
+
+A.P. brought a related question to my fictional repair café exercise. In [*Two Ways to Book the Wrong Room*](/notes/which-saturday/index.qmd), Noor Haddad organizes the Tannery Row Repair Café. Her calendar has two Saturday sessions in Workshop B. Elliot, the venue coordinator, emails to say he is moving the café to the Garden Room for its next session. By the time Noor forwards the notice to her assistant, one Saturday has passed and another is ahead. Which booking did he mean?
+
+A.P., a wedding planner I spoke with separately, raised what room the venue had promised Noor. He suggested checking any booking agreement to see whether it specified a room, then asking the venue about the change and what could be done. His remarks leave the Saturday open. They add a question about what Noor had arranged with the venue.
+
+The agreement I supplied in the exercise was Noor’s grant to the assistant. It says:
+
+> The Delegatee may edit the room and source note of a session when the venue coordinator has confirmed the change for that session.
+
+That tells us when the assistant may change a calendar entry. Noor keeps the authority she has not delegated. If confirmation for a session is unclear, the assistant must leave the entry alone and ask her. It has no tool to contact Elliot directly.
+
+I supplied no venue booking agreement. Workshop B appears in the calendar, but that record cannot tell a reviewer whether the venue had promised that particular room, whether a substitution had already been agreed, or whether Noor still had a choice to make. A.P.’s suggestion gives the reviewer something to find out. It supplies no answer about the terms of the booking.
+
+The distinction is easier to see in two hypothetical versions of that arrangement. Suppose Noor and the venue have already agreed to use the Garden Room for an identified session, and Elliot has confirmed it. Updating the calendar can simply record that decision. Suppose instead that the venue has offered a substitute and Noor has kept the decision whether to accept it. The assistant’s permission to edit the calendar does not give it that choice. It would need Noor’s decision as well as clarity about the session.
+
+Elliot’s confirmation can establish what the venue says it will provide. Whether that settles the whole matter depends on the arrangement with Noor. I would want the grant to make clear whether the assistant is recording an agreed move or whether accepting a different room still needs to come back to her.
+
+This is where the cases differ, and where A.P.’s question marks the limit of the check. For the traveller, we have the earlier terms and can demonstrate what the grant dropped or misplaced. For Noor, A.P. identified the agreement we would need to see before drawing a conclusion. I cannot infer that omission just because the venue agreement is absent from my exercise. Nor would finding it, by itself, settle which Saturday Elliot meant.
+
+::: {.content-visible when-format="html"}
+```{=html}
+<div class="gl" id="gl">
+<style>
+.gl { border: 1px solid var(--bs-border-color, rgba(128,128,128,.35)); border-radius: .5rem; padding: 1rem 1.1rem 1.1rem; margin: 1.5rem 0 1.8rem; font-size: .95rem; }
+.gl fieldset { margin: 0 0 .9rem; padding: 0; border: 0; }
+.gl legend { font-family: Inter, system-ui, sans-serif; font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; opacity: .75; margin-bottom: .45rem; float: none; width: auto; }
+.gl .btn-group .btn { font-family: Inter, system-ui, sans-serif; font-size: .85rem; }
+.gl .gl-cap { font-family: Inter, system-ui, sans-serif; font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; opacity: .75; margin: 0 0 .5rem; }
+.gl ol { list-style: none; padding: 0; margin: 0; }
+.gl li { display: grid; grid-template-columns: 9.5rem 1fr; gap: .2rem .9rem; padding: .55rem .5rem; border-left: 3px solid transparent; }
+.gl li + li { border-top: 1px solid var(--bs-border-color, rgba(128,128,128,.2)); }
+.gl .gl-case { font-family: Inter, system-ui, sans-serif; font-size: .8rem; font-weight: 600; padding-top: .15rem; }
+.gl .gl-case span { display: block; font-weight: 400; opacity: .75; }
+.gl .gl-docs { display: block; }
+.gl .gl-result { display: block; font-family: Inter, system-ui, sans-serif; font-size: .82rem; font-weight: 600; margin-top: .25rem; color: var(--bs-primary); }
+.gl .gl-panel + .gl-panel { margin-top: 1.4rem; }
+.gl.gl-js .gl-panel + .gl-panel { margin-top: 0; }
+.gl.gl-js .gl-panel .gl-cap { display: none; }
+@media (max-width: 480px) { .gl li { grid-template-columns: 1fr; } }
+</style>
+
+<fieldset hidden>
+  <legend>Check each case against…</legend>
+  <div class="btn-group" role="group">
+    <input type="radio" class="btn-check" name="gl-v" id="gl-given" value="given" checked>
+    <label class="btn btn-outline-primary" for="gl-given">the issued grant</label>
+    <input type="radio" class="btn-check" name="gl-v" id="gl-asked" value="asked">
+    <label class="btn btn-outline-primary" for="gl-asked">the original request</label>
+  </div>
+</fieldset>
+
+<div class="gl-panel" data-v="given">
+  <p class="gl-cap">Checked against the issued grant (and, where there is one, the final record)</p>
+  <ol>
+    <li><span class="gl-case">Noon arrival<span>Hypothetical</span></span><span><span class="gl-docs">The grant sets no arrival deadline.</span><span class="gl-result">It complies.</span></span></li>
+    <li><span class="gl-case">10:15 p.m. nonstop<span>Observed run</span></span><span><span class="gl-docs">The final record and the grant both set 9:30 p.m. and state no exception.</span><span class="gl-result">It is ruled out.</span></span></li>
+    <li><span class="gl-case">12:15 a.m. Friday<span>Observed replay</span></span><span><span class="gl-docs">The grant sets 9:30 p.m. Thursday and, beside it, the writer’s earlier 9 a.m. Friday, with nothing to say which one governs.</span><span class="gl-result">The 9:30 p.m. deadline rules it out, but the earlier line remains.</span></span></li>
+    <li><span class="gl-case">Garden Room<span>Repair café</span></span><span><span class="gl-docs">Noor’s grant lets the assistant edit a session’s room once Elliot has confirmed the change for that session. Elliot wrote “your next session.”</span><span class="gl-result">It depends on which Saturday he meant.</span></span></li>
+  </ol>
+</div>
+
+<div class="gl-panel" data-v="asked">
+  <p class="gl-cap">Checked against the original request (and, where there is one, the record read back and the correction)</p>
+  <ol>
+    <li><span class="gl-case">Noon arrival<span>Hypothetical</span></span><span><span class="gl-docs">The traveller asked to arrive by 10 a.m.</span><span class="gl-result">The traveller would turn it down.</span></span></li>
+    <li><span class="gl-case">10:15 p.m. nonstop<span>Observed run</span></span><span><span class="gl-docs">The record read back to the traveller allowed a nonstop landing by 10:30 p.m. The traveller’s reply corrected the ordinary deadline and said nothing about the exception.</span><span class="gl-result">The traveller would accept it, unless that silence withdrew the exception.</span></span></li>
+    <li><span class="gl-case">12:15 a.m. Friday<span>Observed replay</span></span><span><span class="gl-docs">The traveller’s correction set the deadline at 9:30 p.m. on Thursday the 12th.</span><span class="gl-result">The traveller would turn it down.</span></span></li>
+    <li><span class="gl-case">Garden Room<span>Repair café</span></span><span><span class="gl-docs">Venue booking agreement not on file.</span><span class="gl-result">The records can’t say what Noor arranged.</span></span></li>
+  </ol>
+</div>
+<p class="visually-hidden" aria-live="polite" id="gl-live"></p>
+
+<script>
+(function () {
+  var root = document.getElementById("gl");
+  if (!root) return;
+  var fs = root.querySelector("fieldset");
+  var panels = root.querySelectorAll(".gl-panel");
+  var live = document.getElementById("gl-live");
+  function show(v, announce) {
+    for (var i = 0; i < panels.length; i++) panels[i].hidden = panels[i].getAttribute("data-v") !== v;
+    if (announce && live) {
+      var p = root.querySelector('.gl-panel[data-v="' + v + '"] .gl-cap');
+      live.textContent = p ? p.textContent : "";
+    }
+  }
+  root.classList.add("gl-js");
+  fs.hidden = false;
+  root.addEventListener("change", function (e) { if (e.target && e.target.name === "gl-v") show(e.target.value, true); });
+  show("given", false);
+})();
+</script>
+</div>
+```
+:::
+
+Before issuing a grant, I would try one small check. It is a way of validating the grant in miniature before anyone relies on it: put the original request beside the draft grant and test a boundary rather than hunting for a word. Take a flight the traveller would accept and one they would turn down. Does the grant draw the line in the same place, for the same reason? If a condition was relaxed or shifted, who had authority to agree? If a condition was corrected, can a reader tell what it replaced? What choice still belongs to the person who asked for the job?
+
+For the three flight cases, the check is short:
+
+| Boundary test | Hypothetical flight | Observed run | Observed replay |
+| --- | --- | --- | --- |
+| Test flight | Noon arrival (traveller would turn it down; asked to arrive by 10 a.m.) | 10:15 p.m. nonstop (traveller would accept it; allowed nonstops up to 10:30 p.m.) | 12:15 a.m. Friday arrival (traveller would turn it down; corrected deadline to 9:30 p.m. Thursday) |
+| Draft grant | Allows it; the 10 a.m. deadline is absent. | Excludes it; the 10:30 p.m. nonstop exception is absent. | Still rules it out under the 9:30 p.m. deadline, but leaves the superseded 9 a.m. Friday deadline beside it unmarked. |
+| Authority for the line | No traveller-authorized relaxation is recorded. That choice still belongs to the traveller. | No traveller-authorized tightening is recorded. That choice still belongs to the traveller. | The traveller already replaced the earlier deadline; no fallback to 9 a.m. remains. |
+
+I would hold any of those grants long enough to make the line clear—putting back what was dropped, or removing the earlier deadline the correction replaced. In the hypothetical case, if the available flights cannot meet the 10 a.m. deadline within the other conditions, the traveller needs the choice before a purchase commits them. A person authorized to approve extra spending may also be needed. Permission to spend more does not, on its own, settle whether arriving late is acceptable.
+
+That is a small enough check to use on an ordinary booking. Take an outcome the requester would accept and one they would turn down, and test whether the grant draws the line in the same place, for the same reason, or returns the choice to someone entitled to make it. Keep the original request with the grant so the next person checking the work can run the same test. For a traveller, it is the difference between checking that the assistant followed the grant and noticing that it bought a ticket too late or refused a flight they had already allowed.
