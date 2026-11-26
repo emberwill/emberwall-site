@@ -25,6 +25,9 @@ format:
 
 ::: {.note-meta}
 Working note · version 0.2 · 21 November 2026 · follows [*Assuring one delegation*](/notes/delegation-assurance/index.qmd) [· [PDF](two-ways-to-book-the-wrong-room.pdf)]{.content-visible when-format="html"}
+[[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24564316.svg)](https://doi.org/10.5281/zenodo.24564316)]{.content-visible when-format="html"}
+[\
+DOI: [10.5281/zenodo.24564316](https://doi.org/10.5281/zenodo.24564316)]{.content-visible unless-format="html"}
 :::
 
 Noor Haddad runs the Tannery Row Repair Café, a fictional neighbourhood workshop I made up to test what might conceivably go sideways when you give an AI calendar assistant a moderately believable job. On Monday, Noor’s calendar shows two Saturdays in Workshop B. The café session on 7 March, an extra session, was two days ago, and the one on the 21st is twelve days away. Both rows still say “scheduled”.
