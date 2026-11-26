@@ -28,6 +28,9 @@ format:
 
 ::: {.note-meta}
 Working note · version 0.1 · 27 November 2026 · follows [*Two Ways to Book the Wrong Room*](/notes/which-saturday/index.qmd) [· [PDF](what-the-grant-left-out.pdf)]{.content-visible when-format="html"}
+[[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24564025.svg)](https://doi.org/10.5281/zenodo.24564025)]{.content-visible when-format="html"}
+[\
+DOI: [10.5281/zenodo.24564025](https://doi.org/10.5281/zenodo.24564025)]{.content-visible unless-format="html"}
 :::
 
 In [*Assuring one delegation*](/notes/delegation-assurance/index.qmd), I used a hypothetical flight booking. The assistant buys a non-refundable ticket for $640. It lands at noon. The written grant allows the purchase, and the assistant meets every condition in it.
