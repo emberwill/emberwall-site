@@ -17,10 +17,10 @@ I’m testing whether these ideas can work together so that an outsider can foll
 
 | Stage | Question | Case or status |
 | --- | --- | --- |
-| Before the grant | What did the person want, and who was entitled to authorize the job? | No dedicated case yet. |
-| Forming the grant | Does the written grant capture the task, its limits, and what the agent may decide? | No dedicated case yet. |
+| Before the grant | What did the person want, and who was entitled to authorize the job? | [*What the Grant Left Out*](/notes/what-the-grant-left-out/index.qmd), from the [grant-writing tests](/cases/index.qmd#grant-002). |
+| Forming the grant | Does the written grant capture the task, its limits, and what the agent may decide? | [*What the Grant Left Out*](/notes/what-the-grant-left-out/index.qmd), from the [grant-writing tests](/cases/index.qmd#grant-002), the [replays](/cases/index.qmd#grant-003) and the [typed check](/cases/index.qmd#typed-check-001). |
 | Issuing authority | What could the agent actually cause, directly or indirectly? | [Read-only code review](/cases/index.qmd#read-only-code-review-dce-0002). |
-| Judgment | Was the agent’s choice authorized, and was it defensible given the facts and priorities in the grant? | [Flight booking](/cases/index.qmd#flight-booking-flight-dce-001). |
+| Judgment | Was the agent’s choice authorized, and was it defensible given the facts and priorities in the grant? | [Flight booking](/cases/index.qmd#flight-booking-flight-dce-001) and the repair café in [*Two Ways to Book the Wrong Room*](/notes/which-saturday/index.qmd). |
 | Execution | What happened, and which controls allowed or blocked it? | [Flight booking](/cases/index.qmd#flight-booking-flight-dce-001) and [weather report](/cases/index.qmd#weather-report-weather-001). |
 | Fulfillment | Did the agent reach an acceptable outcome or escalate in time? | No dedicated case yet. |
 | Verification | What can an independent reviewer establish from the records? Where does the evidence run out? | [Flight booking](/cases/index.qmd#flight-booking-flight-dce-001). Model panel and author review complete. Seeking an independent verifier. |
@@ -39,6 +39,7 @@ I’m testing whether these ideas can work together so that an outsider can foll
 - **Grossman and Hart.** Ownership carries residual rights to decide how assets are used in circumstances the contract leaves unspecified. I borrow that idea to name who can settle a question outside the agent’s delegated discretion. [The Costs and Benefits of Ownership](https://www.journals.uchicago.edu/doi/10.1086/261404)
 - **Holmström and Milgrom.** Strong rewards for the parts of a job that are easy to measure can draw effort away from work that is harder to measure. I use this as a caution when writing acceptance conditions. [Multitask Principal–Agent Analyses](https://web.stanford.edu/~milgrom/publishedarticles/Multitask%20Principal%20Agent.pdf)
 - **Davis.** Where discretion is needed, give it limits, structure how it is exercised, and make it possible to review.
+- [**Gotel and Finkelstein.**]{#gotel-finkelstein} Most problems blamed on poor requirements traceability come from being unable to trace a requirement back to where it came from, before it entered the specification. I use this for what happens between a request and the grant written from it. [An Analysis of the Requirements Traceability Problem](https://doi.org/10.1109/ICRE.1994.292398)
 
 I use Miller to think about what an agent can cause and Davis to think about how it should choose within those limits.
 

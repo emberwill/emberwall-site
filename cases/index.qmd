@@ -24,6 +24,20 @@ Claude Code and Codex each completed 14 valid mock flight-booking runs under the
 
 Gemini, Mistral, and Qwen then used the contract to review 17 blinded case packets. The panel was unanimous on 14, and I made the final adjudications. In one disputed case, I judged the contract itself ambiguous. The same contract served as a reference for both execution and review, and the disagreements helped identify where its wording still required judgment.
 
+## Writing the grant · GRANT-002 {#grant-002}
+
+*When a traveller’s request becomes written instructions, what survives?*
+
+Cohere’s Command A+ wrote the grant a booking assistant would act under, and a Mistral model applied each grant to fixed mock itineraries. In GRANT-001, no grant let the assistant buy a flight the traveller had ruled out, but none let it buy an acceptable flight without asking either. GRANT-002 added a typed term record under a short booking protocol, and in one arm read the record back to a scripted traveller who corrected it. The assistant could buy 54 of 60 acceptable flights under grants written with the record alone, and 60 of 75 with the read-back. The read-back arm also produced 15 purchases the traveller had ruled out: three writers put the traveller’s 9:30 p.m. correction on the flight home. In one run, the traveller’s exception for a later nonstop landing was right in the record read back to the traveller, then disappeared from both the final record and the grant. Read the note: [*What the Grant Left Out*](/notes/what-the-grant-left-out/index.qmd)
+
+## Rewording the correction · GRANT-003 {#grant-003}
+
+GRANT-003 replayed GRANT-002’s read-back conversations from the traveller’s correction, changing only its wording. On the seven conversations where two failed sentences were rewritten to name the city, the day and a.m. or p.m., the assistant bought 86 of 86 acceptable flights, against 75 of 86 with the original wording. Purchases the traveller had ruled out fell from 31 of 68 to 1. That one followed a grant that kept the writer’s earlier 9 a.m. deadline beside the corrected 9:30 p.m. one. Clear wording did not remove a confirmation step one writer added, or the leftover earlier deadline.
+
+## Typed check · TYPED-CHECK-001 {#typed-check-001}
+
+A deterministic checker applied each writer’s typed final record from GRANT-002 and GRANT-003 to the same itineraries, with no new model calls, and was scored against the same key as the assistant reading the prose grants. Of the 812 decisions the key settles, the checker agreed 464 times and the assistant 717. Of the 271 cases where the checker missed and the assistant was right, 268 were flights sent back to the traveller: corrections such as the authority to buy reached the grant but not the record, and many records held rows outside the format. Read permissively on those two points, the checker agreed 719 times. Every ruled-out flight it permitted, the assistant reading the grant permitted too.
+
 ## Weather report · WEATHER-001
 
 I used Cohere’s Command A+ to propose an update to a synthetic weather report. The contract authorized only a change to atmospheric pressure, but in one trial the model proposed changing temperature as well. A separate, deterministic Python checker rejected the entire proposal. Codex reviewed the result and verified that both the original report and the previously generated output were unchanged. The record shows what the agent proposed and what actually changed.
