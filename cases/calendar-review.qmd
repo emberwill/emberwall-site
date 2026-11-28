@@ -1,0 +1,21 @@
+---
+title: "Review three calendar edits"
+subtitle: "A four-minute walkthrough on reading an assistant's stated reason"
+description: "Decide whether three proposed calendar edits should go ahead, then see the answer key and what a mechanical check would say."
+toc: false
+resources:
+  - calendar-review/cases.js
+  - calendar-review/walkthrough.js
+  - calendar-review/walkthrough.css
+---
+
+```{=html}
+<link rel="stylesheet" href="calendar-review/walkthrough.css">
+<div id="crw" class="crw">
+  <noscript><p>This walkthrough needs JavaScript. The cases and the reasoning behind them are described in the <a href="/cases/study-1-protocol.html">Study 1 protocol</a>.</p></noscript>
+</div>
+<script src="calendar-review/cases.js"></script>
+<script src="calendar-review/walkthrough.js"></script>
+```
+
+The cases are fictional. Material version `web-v1.0`. Other ways to help are on [Help wanted](/help.qmd).

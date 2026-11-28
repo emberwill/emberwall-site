@@ -4,7 +4,7 @@ description: "Small experiments with AI agents working under explicit limits."
 toc: true
 ---
 
-These are small experiments with AI agents working under explicit limits. Each asks what the agent can do, what happens when it proposes something outside its authority, and what evidence a reviewer has afterward.
+These are small experiments with AI agents working under explicit limits. Each asks what the agent can do, what happens when it proposes something outside its authority, and what evidence a reviewer has afterward. If you would like to help with any of them, see [Help wanted](/help.qmd).
 
 ## Verify one delegation · VERIFY-001 (open for reviewers)
 

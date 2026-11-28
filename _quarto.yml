@@ -20,6 +20,8 @@ website:
         href: cases/index.qmd
       - text: "Reading"
         href: reading.qmd
+      - text: "Help wanted"
+        href: help.qmd
       - text: "About"
         href: about.qmd
   page-footer:

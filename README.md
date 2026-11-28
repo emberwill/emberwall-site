@@ -11,6 +11,9 @@ Source for [emberwall.net](https://emberwall.net), working notes by Will Brooke.
 | `notes/which-saturday/index.qmd` | The working note "Two Ways to Book the Wrong Room" (web page and PDF) |
 | `cases/index.qmd` | Tests: the small experiments behind the note |
 | `reading.qmd` | Reading: the sources behind the notes and what was taken from each |
+| `help.qmd` | Help wanted: the places Will could use outside help, shortest first |
+| `cases/calendar-review.qmd` | The calendar-review walkthrough; its script and styles are in `cases/calendar-review/` |
+| `cases/study-1-protocol.qmd` | The open Study 1 protocol and Study 2 specification behind the walkthrough |
 | `contract.qmd` | The generic delegation contract template, linked from the Reading page |
 | `about.qmd` | About and contact |
 | `404.qmd` | Page-not-found page |

@@ -23,8 +23,8 @@ I’m testing whether these ideas can work together so that an outsider can foll
 | Judgment | Was the agent’s choice authorized, and was it defensible given the facts and priorities in the grant? | [Flight booking](/cases/index.qmd#flight-booking-flight-dce-001) and the repair café in [*Two Ways to Book the Wrong Room*](/notes/which-saturday/index.qmd). |
 | Execution | What happened, and which controls allowed or blocked it? | [Flight booking](/cases/index.qmd#flight-booking-flight-dce-001) and [weather report](/cases/index.qmd#weather-report-weather-001). |
 | Fulfillment | Did the agent reach an acceptable outcome or escalate in time? | No dedicated case yet. |
-| Verification | What can an independent reviewer establish from the records? Where does the evidence run out? | [Flight booking](/cases/index.qmd#flight-booking-flight-dce-001). Model panel and author review complete. Seeking an independent verifier. |
-| Accountability | Who owes an explanation, who can contest what happened, and how can they seek a remedy? | DISC-001. Test run complete and write-up drafted. Seeking a privacy or administrative-law reviewer. |
+| Verification | What can an independent reviewer establish from the records? Where does the evidence run out? | [Flight booking](/cases/index.qmd#flight-booking-flight-dce-001). Model panel and author review complete. Seeking an independent verifier ([Help wanted](/help.qmd)). |
+| Accountability | Who owes an explanation, who can contest what happened, and how can they seek a remedy? | DISC-001. Test run complete and write-up drafted. Seeking a privacy or administrative-law reviewer ([Help wanted](/help.qmd)). |
 | Learning | Which decided cases justify a change to the rules for future grants? | No dedicated case yet. |
 
 ## Writing the grant

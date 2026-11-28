@@ -1,0 +1,165 @@
+---
+title: "Study 1 protocol and Study 2 specification"
+subtitle: "When does an assistant's stated reason help a reviewer?"
+description: "An open protocol for a study of pre-commit review of calendar edits, and a specification for a deterministic temporal check. Version 1.0."
+date: 2026-11-28
+version: "1.0"
+toc: true
+---
+*Open protocol, version 1.0 · 28 November 2026 · the fresh main-study case bank has not been written yet*
+
+This document specifies two bounded follow-up studies extending the working note *Assuring the Reading* (posting 4 December 2026):
+
+1. **Study 1 (Human-Participant Experiment):** A pre-commit review study under explicit instructions to assess stated reasons, testing under what presentation conditions a warrant improves a reviewer's authorization judgment—and when it fails to help or increases confidence without improving accuracy.
+2. **Study 2 (Bounded Engineering Study):** A deterministic specification and two-layer test-suite design for S.S.'s proposed temporal-disagreement gate, separating code correctness from grant-level authorization.
+
+**Boundary with prior work:** The four-reader exercise in *Assuring the Reading* is kept separate as a **retrospective review** of an already-saved edit. Study 1 uses a single **pre-commit review** framing throughout. Neither study recruits main-study participants, authors the fresh evaluation case bank, or revises the paper's conclusions until the 6-participant development pilot is complete and the protocol and rubric are frozen.
+
+::: {.callout-note}
+## The development cases are public
+
+The six development cases (`DEV-01` to `DEV-06`) and the practice case are used in the public [calendar-review walkthrough](/cases/calendar-review.qmd), with one café case renamed. That walkthrough replaces the moderated pilot described below rather than doing its job: it asks for reasons by multiple choice, not free text, gives each visitor three cases rather than six, and has no debrief. It doesn't test free-text coding, agreement between coders or the debrief questions. A team running the moderated pilot should write fresh cases.
+:::
+
+## Part 1: Study 1 Protocol (Pre-Commit Warrant Review)
+
+### 1.1 Research Questions & Modest Outcome Branches
+
+**Primary question:** Under what presentation conditions does a stated reason improve a pre-commit reviewer's ability to distinguish supported, unsupported, and genuinely unresolved calendar edits—and when does it increase confidence without improving judgment?
+
+Building on the tension noted in *Assuring the Reading* between explanation-induced overreliance ([Bansal et al., 2021](https://arxiv.org/abs/2006.14779)) and reduced verification cost ([Vasconcelos et al., 2023](https://arxiv.org/abs/2212.06823)), the study distinguishes four bounded empirical outcomes under the tested conditions:
+
+* **Existing warrant helps:** Both `C1` (Three-Field Warrant) and `C2` (Checkable Warrant) outperform `C0` (No Warrant) on justified disposition accuracy without inflating over-acceptance on defective warrants.
+* **Presentation package matters:** Only `C2` improves justified decisions over `C0`, particularly on cases where a warrant requires challenge.
+* **Reassurance risk observed:** Either `C1` or `C2` increases confidence on incorrect decisions without improving accuracy (noting that fewer source-panel opens alone does not prove reassurance, since an accurate, sufficiently informative warrant can legitimately reduce checking).
+* **No detected benefit:** Neither warrant format shows a detected improvement over `C0` under the tested pre-commit conditions—limiting claims for short warrants in this setting without proving that ordinary reviewers can never extract gaps or that mechanical gates should automatically carry more weight.
+
+### 1.2 Single Task Framing, Two-Stage Judgment & Cross-Trial Learning
+
+Every trial uses the exact same **pre-commit review** framing:
+
+* **Scenario:** A calendar assistant has prepared a proposed edit under a standing principal grant. The edit has **not** been applied yet.
+* **Judgment 1 — Action Disposition & Evidentiary Basis (all conditions, locked before Judgment 2):**
+  * Choose one of three mutually exclusive dispositions:
+    1. **Authorize:** Apply the proposed edit now (the underlying record establishes authorization under the grant).
+    2. **Seek clarification:** Hold the edit and ask the principal or sender to clarify (the record cannot settle authorization).
+    3. **Reject:** Decline the proposed edit (the record establishes the edit is unauthorized or contradicts the source).
+  * Provide a concise free-text **cited evidentiary basis** ("What specific detail(s) in the record support your decision?") plus structured record-element checkboxes, and a **5-point confidence rating** (`1 = Not at all confident` to `5 = Very confident`).
+* **Judgment 2 — Stated-Reason Adequacy (`C1` and `C2` only, collected strictly after Judgment 1 is locked):**
+  * Answer: *"Regardless of your action decision, does the assistant's stated reason accurately and adequately represent what the record establishes for this proposal?"* (`Yes — accurate and adequate` / `No — lacks a necessary evidentiary connection or misrepresents the record`) plus a one-sentence explanation.
+  * Orientation explicitly instructs participants that they may **authorize** an edit based on the underlying record even when they judge the assistant's stated reason **inadequate**, and may judge a stated reason **accurate** when it faithfully surfaces defeating evidence or ambiguity.
+* **Explicit scope note on cross-trial learning:** Asking participants to evaluate stated-reason adequacy after every warranted case encourages heightened scrutiny on subsequent trials; locking Judgment 1 prevents retroactive changes on the current trial but does **not** eliminate learning across trials. Accordingly, this study evaluates **pre-commit review under explicit instructions to assess stated reasons**, rather than testing whether unprompted ordinary readers spontaneously notice warrant defects. Analysis retains `trial_order` and explicitly checks for behavioral shifts after each participant's first Judgment 2 prompt.
+* **Equal source accessibility & telemetry interpretation:** Across `C0`, `C1`, and `C2`, four identical source panels (`Standing Grant`, `Source Notice`, `Current Calendar`, `Booking History`) sit collapsed by default directly beneath the proposal, one click away. Panel opens are logged as **observed access events** (not proof of reading or verification), and dwell time is treated strictly as a **proxy** (not proof of comprehension).
+
+### 1.3 Experimental Design
+
+Study 1 crosses **Presentation Condition** (3 levels, within-participant) with **Underlying Evidentiary Status** (3 levels). Within `C1` and `C2`, **Warrant Fidelity** (`Accurate` vs. `Plausible Defective`) is fully crossed with all three evidentiary statuses—including **accurate warrants on unsupported proposals** (where the warrant accurately surfaces defeating evidence) and **plausible defective warrants on supported proposals** (where the warrant omits a necessary evidentiary connection).
+
+| Factor | Levels | Definition |
+| --- | --- | --- |
+| Presentation Condition | `C0` No Warrant | Proposed calendar edit + four collapsed source panels only. |
+| Presentation Condition | `C1` Three-Field Warrant | Proposed edit + source panels + three-field block (`Notice sent`, `Session and evidence`, `Unresolved conflict`) matching *Assuring the Reading*. |
+| Presentation Condition | `C2` Checkable Warrant (Presentation Package) | Proposed edit + source panels + structured warrant with specific source pointers, explicit temporal relationship, and explicit unresolved-status statement. Treated as a **presentation package** (added detail and length are part of the treatment). |
+| Evidentiary Status | `S` Supported / `U` Unsupported / `A` Genuinely Unresolved | Ground-truth authorization status established strictly by the visible record under the grant. |
+| Warrant Fidelity (defined in `C1` & `C2` only) | `Accurate` vs. `Plausible Defective` | Crossed with all three statuses (`S`, `U`, `A`). Defective accounts include both timeline omissions and omitted source restrictions, balanced across formats. |
+
+| Evidentiary Status | Target Action Disposition | Accurate Account (Target Judgment 2: `Yes`) | Plausible Defective Account (Target Judgment 2: `No`) |
+| --- | --- | --- | --- |
+| `S` Supported | Authorize | Connects notice, temporal relation, and calendar to establish authorization. | Lacks a necessary evidentiary connection (e.g., cites true calendar state without linking send date to session). |
+| `U` Unsupported | Reject | Accurately states defeating evidence (e.g., notice authorizes a different session or excludes this one). | Omits contradicting clause/scope restriction or misapplies temporal count while sounding specific. |
+| `A` Genuinely Unresolved | Seek clarification | Explicitly names the unresolved evidentiary gap or defensible competing readings. | Omits the conflict and reports `none` despite the record's unresolved gap. |
+
+### 1.4 Procedure, Orientation & Pilot Scope
+
+1. **Orientation & Neutral Practice Trial (4–5 min):** Explain the pre-commit role, the three dispositions, the separation between Judgment 1 and Judgment 2, and the four collapsed source panels. Run **one ungraded practice trial (`PRAC-01`) with no warrant** and immediate feedback on the three dispositions, teaching the task without teaching distrust of warrants.
+2. **Scored Review Trials (6 cases in initial pilot block):** One case per screen, no backtracking. Primary and secondary measures are locked per trial **before** any exploratory debrief.
+3. **Post-Task Exploratory Debrief (Pilot only, 5–8 min):** Conducted strictly after all 6 trials lock to diagnose comprehension, fatigue, wording ambiguities, and panel-logging behavior. Disagreements with case keys, and especially with keys marked provisional, are recorded as **evidence about the materials**, not automatically as participant comprehension failures.
+4. **Pilot Block & Versioning Rule:** Six participants (`P1–P6`) form the clean initial development-pilot block (`v1.0`). Any additional pilot sessions used to investigate problems discovered in the initial block must tag revised materials explicitly by version (e.g., `v1.1`). All pilot cases are retired after the pilot; the main protocol, workload (6 vs. 9 cases/person), verified balanced assignment schedule, and coding rubric are frozen before authoring fresh evaluation cases.
+
+### 1.5 Rotation Scheme & Statistical Analysis Plan
+
+* **Pilot Rotation Schedule (`P1–P6`):** Pairs a 6 × 6 Williams Latin Square with 3 condition-assignment groups (`A`, `B`, `C`), programmatically verified so that across `P1–P6`: (1) no participant sees any case twice, (2) every participant sees `C0`, `C1`, and `C2` twice, (3) every `(Case, Condition)` pair occurs once per 3-participant cycle, (4) every case appears once per serial position (1–6) and every condition appears twice per serial position, and (5) all 30 ordered first-order case transitions occur once.
+* **Qualification for 9 Participants:** Adding `P7–P9` by repeating `P1–P3` preserves **case-by-condition balance** (3 full cycles), but does **not** preserve the 6-participant block's exact serial-position or first-order carryover balance. Therefore `P1–P6` serves as the balanced initial block, and any extra sessions serve targeted diagnostic follow-up under explicit material version numbers.
+* **Main-Study Assignment:** Once pilot timing determines workload (6 vs. 9 cases/person), construct and programmatically verify a balanced assignment schedule for the fresh case bank (without claiming formal BIBD status unless all BIBD balance invariants are explicitly satisfied).
+* **Primary vs. Secondary Contrasts:**
+  * **Single Primary Contrast:** `C2` (Checkable Warrant) vs. `C0` (No Warrant) on **macro-averaged justified accuracy**.
+  * **Secondary / Exploratory Contrasts:** `C1` vs. `C0`, `C2` vs. `C1`, Condition × Status interactions, Accurate vs. Defective fidelity contrasts within `C1`/`C2`, Judgment 2 (stated-reason adequacy), confidence calibration, timing, source-access patterns, and behavioral shifts after the first Judgment 2 prompt (`post_first_adequacy_q`).
+* **Statistical Models (Respecting Clustering & Undefined Fidelity in `C0`):**
+  * Repeated judgments from one participant are **not** independent participants; both `participant_id` and `case_id` enter as crossed random effects.
+  * Because Warrant Fidelity is undefined in `C0`, presentation and fidelity are modeled separately:
+    * **Model 1 (Presentation Comparison across `C0`, `C1`, `C2`):** `justified_decision ~ condition * status + trial_order + (1 | participant_id) + (1 | case_id)`
+    * **Model 2 (Fidelity Contrast within `C1` and `C2` only):** `justified_decision ~ condition * fidelity * status + trial_order + (1 | participant_id) + (1 | case_id)`
+    * **Exploratory Learning Check:** Add `post_first_adequacy_q` (whether the participant has already seen at least one Judgment 2 prompt) to examine cross-trial scrutiny shifts.
+* **Candidate Recruitment Ranges (Not Demonstrated Power Calculations):**
+  * **Initial Development Pilot (`N = 6`, 36 judgments; plus optional diagnostic follow-ups):** Descriptive feasibility and materials check only. Informs feasibility but will not precisely estimate all parameters needed for power planning.
+  * **Main Study Candidate Ranges (`N = 36–45` or `N = 72–90`):** Candidate recruitment ranges only, pending a simulation-based power/precision calculation specifying assumed case difficulty, participant-level ICC, assignment schedule, and target effect size for the primary `C2` vs. `C0` contrast.
+
+### 1.6 Scoring Rules & Coder-Reliability Gate
+
+* **Two-Part Primary Score:** A decision counts as **Justified** only when the disposition matches ground truth *and* the cited basis satisfies case-specific criteria. Concise paraphrases are accepted, and coders do **not** require a source-panel click when the participant correctly identifies evidence reproduced in the warrant.
+* **Separate Per-Status Rates & Blanket-Rejection Upper Bound:** Report **Justified Authorization Rate (JAR)** on `S`, **Justified Rejection Rate (JRR)** on `U`, and **Justified Clarification Rate (JCR)** on `A` separately, plus **Macro-Averaged Justified Accuracy = `(JAR + JRR + JCR) / 3`**. Blanket rejection earns **at most 33.3% (one-third)** on balanced statuses—and only with adequate bases on unsupported cases.
+* **Judgment 2 Coding Principle:** Coders assess whether the warrant **lacks a necessary evidentiary connection** (or misrepresents the record), rather than whether it omits a single preferred explanatory sentence.
+* **Workable Coder-Reliability Gate (Handling Rare Categories):** For pilot coding, report **raw percent agreement**, **category counts**, and **Cohen's κ where calculable** (if rare categories such as Unsupported Error Accusation have zero or near-zero observed counts in the 6-person pilot, an undefined or uninformative κ does not block progression). Pair pilot coding with a separate, **clearly labelled synthetic coder-calibration exercise** (in the separate pilot packet, not posted) to verify coders reliably distinguish *Justified Clarification*, *Unsupported Error Accusation*, and *Unfocused Hold* without mixing synthetic items into observed participant data.
+
+## Part 2: Study 2 Specification (Bounded Engineering Study of the Café Gate)
+
+### 2.1 Scope, Parser Boundary & Frozen Eligibility Rule
+
+Study 2 evaluates S.S.'s proposed temporal-disagreement check from *Assuring the Reading* as a deterministic engineering gate tested on a fresh fixture suite, strictly separating mechanical rule execution from grant-level authorization.
+
+* **Parser Boundary (Two-Stage Architecture):**
+  * **Stage A (Engineering Core — Structured Input):** Accepts **structured, pre-extracted reference fields** (`reference_type`, `target_session_ids`, `target_dates`, `excluded_or_quoted_refs`), keeping temporal-rule correctness cleanly interpretable.
+  * **Stage B (Optional Extraction Layer — Separately Scored):** Any natural-language extractor mapping raw notices to those fields is evaluated independently, explicitly distinguishing **target** identifiers from dates/IDs mentioned as background, exclusions, or quotations.
+* **Frozen Calendar Eligibility Rule (`is_eligible(event, grant_scope)`) — Venue/Series First:**
+  * Evaluate in strict deterministic order:
+    1. **Scope check first:** If `event.venue_series_id` is missing/unknown (`null` / `"unknown"`), return `UNRESOLVED_ELIGIBILITY`. If `event.venue_series_id != grant_scope.venue_series_id`, **exclude immediately** (even if the unrelated event's `status` is `"tentative"` or `"unknown"`—an unrelated tentative event must not trigger unresolved eligibility).
+    2. **Status check (for in-scope events only):** If `event.status == "active"`, the event is **eligible**. If `event.status in {"cancelled", "declined"}`, **exclude cleanly**. If `event.status` is missing or unrecognized (`null` / `"tentative"` / `"unknown"`), return `UNRESOLVED_ELIGIBILITY`.
+
+### 2.2 Frozen Implementation Semantics & Output Codes
+
+* **Timezone Handling:** All timestamps (`notice_sent_ts`, `read_ts`, `event.start_ts`) MUST be timezone-aware (explicit UTC offset or IANA zone, normalized internally to UTC before comparison). Any timezone-naive timestamp returns **`INTERRUPT_UNRESOLVED_INPUT`** (`missing_timezone`). Require `read_ts >= notice_sent_ts` (else `INTERRUPT_UNRESOLVED_INPUT`).
+* **Timestamp Boundary Rule:** Strictly greater (`event.start_ts > ts`). A session starting at `event.start_ts == ts` or already in progress at `ts` is **not** strictly after `ts` and is excluded from `S_send` / `S_read`.
+* **Explicit-Date Multi-Match Rule:** If an explicit target date (without a distinguishing session ID or start time) matches **two or more** eligible sessions on that calendar date (in the grant's local venue timezone), return **`INTERRUPT_UNRESOLVED_INPUT`** (`ambiguous_explicit_date`).
+* **Supported Relative Reference (v1):** Only `reference_type == "NEXT_SESSION"` is supported. Unsupported relative types (e.g., `"this Saturday"`, `"the upcoming session"`, `"next month"`), unknown explicit IDs, missing eligible candidates, and `UNRESOLVED_ELIGIBILITY` return **`INTERRUPT_UNRESOLVED_INPUT`**.
+* **Target-Mismatch Rule (Applies to Both Explicit AND Relative References):**
+  * If an unambiguous explicit target resolves to `S_target` and `S_target != proposed_session_id` → **`INTERRUPT_TARGET_MISMATCH`**.
+  * If `NEXT_SESSION` yields unique `S_send == S_read` (no temporal disagreement) **but** `S_send != proposed_session_id` → **`INTERRUPT_TARGET_MISMATCH`**.
+
+**Gate Output Codes (Never Generic `PASS`, Never Silent Authorization):**
+
+| Output Code | Meaning | Triggers |
+| --- | --- | --- |
+| `NO_TEMPORAL_CONFLICT_DETECTED` | Limited mechanical signal: no identifier contradiction, no target mismatch, and no `S_send` vs. `S_read` disagreement detected. **Does not authorize an edit.** | Unambiguous explicit target `== proposed_session_id`, OR `NEXT_SESSION` with unique `S_send == S_read == proposed_session_id`. |
+| `INTERRUPT_TEMPORAL_DISAGREEMENT` | `S_send` and `S_read` select different eligible sessions (or tie on earliest `start_ts`). | `NEXT_SESSION` where `S_send != S_read` or earliest `start_ts` ties. |
+| `INTERRUPT_CONTRADICTORY_IDENTIFIER` | Explicit target identifiers conflict with each other or with calendar metadata (e.g., wrong weekday for date, conflicting session ID and date). | Conflicting values in `target_session_ids` / `target_dates`. |
+| `INTERRUPT_TARGET_MISMATCH` | Resolved target session differs from `proposed_session_id` (applies to **both** explicit targets and agreeing `NEXT_SESSION` counts). | Explicit `S_target != proposed_session_id`, OR `NEXT_SESSION` with unique `S_send == S_read != proposed_session_id`. |
+| `INTERRUPT_UNRESOLVED_INPUT` | Gate cannot apply its rule safely (mechanical uncertainty, distinct from grant-level ambiguity). | Unsupported `reference_type`, unknown explicit ID, ambiguous explicit date (multiple eligible sessions same day), missing timezone, missing eligible candidates, or in-scope `UNRESOLVED_ELIGIBILITY`. |
+
+### 2.3 Two-Layer Evaluation Architecture
+
+Every fixture in the fresh Study 2 suite is scored on two independent layers:
+
+| Layer | Question | Oracle | Metrics |
+| --- | --- | --- | --- |
+| **Layer 1: Rule Fidelity** | Does the gate code return the exact specified output code for the structured input and frozen eligibility/boundary rules? | Sections 2.1–2.2 deterministic spec | Exact-match pass rate across all unit, eligibility, timezone, and boundary fixtures (target: 100%). |
+| **Layer 2: Grant Alignment** | How does the gate's limited signal (`NO_TEMPORAL_CONFLICT_DETECTED` vs. `INTERRUPT_*`) align with the grant-level disposition (`Authorize`, `Clarify`, `Reject`)? | Grant-level authorization rubric | Cross-tabulation separating True Interrupts, Appropriate Clearances, **Unnecessary Interruptions (avoidable mechanical friction)**, and **Known Non-Temporal Remainders**. |
+
+### 2.4 Fresh Test-Suite Families (Study 2)
+
+| Family | Scenario Pattern | Layer 1 Expected (`Gate Code`) | Layer 2 Expected (`Grant`) | Alignment Category |
+| --- | --- | --- | --- | --- |
+| **F1** | `NEXT_SESSION` sent before an intervening eligible session, read after it (early-booked & post-notice-booked histories; plus `start_ts == ts` / in-progress boundary fixtures). | `INTERRUPT_TEMPORAL_DISAGREEMENT` | Clarify | True Interrupt |
+| **F2** | `NEXT_SESSION` with no intervening eligible session, unique `S_send == S_read == proposed_session_id`, unambiguous regular schedule and wording. | `NO_TEMPORAL_CONFLICT_DETECTED` | Authorize | Appropriate Clearance |
+| **F3** | Explicit date or session ID matching a unique eligible `proposed_session_id`, even with an intervening session between send and read. | `NO_TEMPORAL_CONFLICT_DETECTED` | Authorize | Appropriate Clearance (tests narrowing) |
+| **F4** | Contradictory explicit identifiers (e.g., `RC-0307` paired with `21 March`, or invalid weekday-date pair). | `INTERRUPT_CONTRADICTORY_IDENTIFIER` | Clarify | True Interrupt |
+| **F5a / F5b** | **Target Mismatch:** (`F5a`) Explicit target resolves to Session A while proposal edits Session B; (`F5b`) `NEXT_SESSION` has unique `S_send == S_read == Session A` while proposal edits Session B. | `INTERRUPT_TARGET_MISMATCH` | Reject | True Interrupt (mismatch) |
+| **F6** | **Frozen Eligibility Order:** Intervening `cancelled` in-scope event or `tentative`/`unknown` **unrelated-venue** event (excluded cleanly) vs. `tentative`/`unknown` **in-scope** event or unknown venue ID (unresolved). | `NO_TEMPORAL_CONFLICT_DETECTED` (clean exclusion) / `INTERRUPT_UNRESOLVED_INPUT` (in-scope unknown) | Authorize / Clarify | Verifies venue-first eligibility rule |
+| **F7a** | **Mechanical Uncertainty on Clear Grant (Friction):** Unsupported phrase (`"this Saturday"`) where only one Saturday session exists and venue intent is unambiguous under the grant. | `INTERRUPT_UNRESOLVED_INPUT` | Authorize | **Unnecessary Interruption (avoidable friction)** |
+| **F7b** | **Mechanical Uncertainty on Unclear/Invalid Grant:** Unknown explicit ID, multiple eligible sessions on one explicit date, missing timezone, or no eligible upcoming session. | `INTERRUPT_UNRESOLVED_INPUT` | Clarify / Reject | True Interrupt |
+| **F8** | **Non-Temporal Remainder — Regular vs. Extra:** `NEXT_SESSION` where `S_send == S_read` points to an extra pop-up session while a standing regular session follows. | `NO_TEMPORAL_CONFLICT_DETECTED` | Clarify | Known Non-Temporal Remainder |
+| **F9** | **Non-Temporal Remainder — Tentative / Conditional Wording:** `S_send == S_read` agrees, but venue wording is conditional (`"hoping to move if maintenance finishes"`). | `NO_TEMPORAL_CONFLICT_DETECTED` | Clarify | Known Non-Temporal Remainder |
+
+
+---
+
+Comments, and offers to run or improve this protocol: [will@emberwall.net](mailto:will@emberwall.net). See also [Help wanted](/help.qmd).
