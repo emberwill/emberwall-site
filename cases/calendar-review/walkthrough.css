@@ -67,3 +67,8 @@
   #crw .crw-scale { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .25rem; }
   #crw .crw-actions .btn { width: 100%; }
 }
+@media print {
+  #crw code { white-space: normal; background: none; padding: 0; }
+  #crw .crw-card, #crw .crw-panel { break-inside: avoid; }
+  #crw .crw-actions { display: none; }
+}

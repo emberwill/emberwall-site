@@ -183,17 +183,21 @@ const MATERIAL_VERSION = "web-v1.0";
       return Promise.resolve({ template_id: randomTemplate(), assignment_source: "client_fallback" });
     }
     var ctrl = typeof AbortController === "function" ? new AbortController() : null;
-    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 4000);
+    // Apps Script can take several seconds on a cold start, so allow up to 8 s.
+    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 8000);
     var url = COLLECTOR_URL + (COLLECTOR_URL.indexOf("?") < 0 ? "?" : "&") + "version=" + encodeURIComponent(MATERIAL_VERSION);
     return fetch(url, { method: "GET", redirect: "follow", signal: ctrl ? ctrl.signal : undefined })
-      .then(function (r) { return r.json(); })
-      .then(function (j) {
+      .then(function (r) { return r.text(); })
+      .then(function (txt) {
         clearTimeout(timer);
-        if (j && j.ok === true && D.TEMPLATES[j.template_id]) return { template_id: j.template_id, assignment_source: "least_filled" };
-        throw new Error("bad assignment");
+        var j = JSON.parse(txt);
+        var t = j && String(j.template_id || j.template || "").toUpperCase();
+        if (j && j.ok !== false && D.TEMPLATES[t]) return { template_id: t, assignment_source: "least_filled" };
+        throw new Error("unexpected assignment response: " + txt.slice(0, 200));
       })
-      .catch(function () {
+      .catch(function (e) {
         clearTimeout(timer);
+        if (window.console) console.info("Calendar review: using a random set of cases (" + (e && e.name === "AbortError" ? "collector timed out" : (e && e.message)) + ")");
         return { template_id: randomTemplate(), assignment_source: "client_fallback" };
       });
   }
@@ -246,7 +250,6 @@ const MATERIAL_VERSION = "web-v1.0";
 
     var status = el("p", { "class": "crw-small", "aria-live": "polite" });
     var screen = el("section", { "class": "crw-screen" }, [
-      el("h2", { text: "Review three calendar edits" }),
       el("p", { text: "A calendar assistant has prepared room changes for community organizers, and none has been applied yet. After one warm-up, you'll review three of them and decide whether each should be authorized, held for clarification, or rejected." }),
       el("p", { "class": "crw-small", text: "If you choose to share, your choices, which panels you open and how long each step takes are sent anonymously to a Google Sheet I keep, to test whether short assistant notes help or mislead reviewers. No names or email addresses are collected. Nothing is sent if you choose not to share." }),
       el("div", { "class": "form-check crw-check" }, [
@@ -528,8 +531,7 @@ const MATERIAL_VERSION = "web-v1.0";
         p("This walkthrough is a companion to the working note Assuring the Reading, which asks what an assistant's stated reason lets a reviewer check."),
         el("p", null, ["It's a short public exercise, not a study. The ",
           el("a", { href: "/cases/study-1-protocol.html", text: "full Study 1 protocol" }),
-          " is open for research groups with human-subjects review who want to test these questions properly. Other ways to help are on ",
-          el("a", { href: "/help.html", text: "Help wanted" }), "."]),
+          " is open for research groups with human-subjects review who want to test these questions properly."]),
         el("div", { "class": "crw-actions" }, [again])
       ])
     ]);

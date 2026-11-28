@@ -24,16 +24,16 @@ An AI agent was given authority to update one number in a synthetic weather repo
 
 *Suits someone who has worked as a verifier, for example of greenhouse-gas statements under ISO 14064-3.*
 
-In the [flight-booking test](/cases/index.qmd#flight-booking-flight-dce-001), a panel of models reviewed 17 case packets and I made the final calls. Nobody independent of me has checked that work. I'd like to set up a 20-minute call in which you look at the evidence on a case, ideally before you see the models' conclusions or mine, and tell me what you would conclude and what you would need to see. Email me to find a time.
+In the [flight-booking test](/cases/index.qmd#flight-booking-flight-dce-001), a panel of models reviewed 17 case packets and I made the final calls. Nobody independent of me has checked that work. I'd like to set up a 20-minute call in which you look at the evidence on a case, ideally before you see the models' conclusions or mine, and tell me what you would conclude and what you would need to see. [Email me](mailto:will@emberwall.net?subject=Flight%20case%20verification) to find a time.
 
 ## Review a disclosure case · DISC-001 · a longer read
 
 *Suits someone with privacy or administrative-law experience.*
 
-DISC-001 is a fictional case about a disclosure to a third party: once a complaint is upheld, who can act on it, and who can put things right? The test run is complete and the write-up is drafted. I'd like a reviewer to read the draft and tell me where its reasoning about authority and remedy goes wrong. Email me and I'll send it.
+DISC-001 is a fictional case about a disclosure to a third party: once a complaint is upheld, who can act on it, and who can put things right? The test run is complete and the write-up is drafted. I'd like a reviewer to read the draft and tell me where its reasoning about authority and remedy goes wrong. [Email me](mailto:will@emberwall.net?subject=DISC-001%20review) and I'll send it.
 
 ## Run the calendar-review study properly · for a research team
 
 *Suits a research group with human-subjects review and a way to recruit participants.*
 
-The walkthrough above is a short public exercise. I've written a fuller [study protocol](/cases/study-1-protocol.qmd) that would test when an assistant's stated reason helps a reviewer judge an edit before it's made, and when it only makes them more confident. It needs a team that can recruit participants, code free-text answers and run the study under ethics review. The protocol is open. If you'd like to run it, or improve it first, I'd like to hear from you.
+The walkthrough above is a short public exercise. I've written a fuller [study protocol](/cases/study-1-protocol.qmd) that would test when an assistant's stated reason helps a reviewer judge an edit before it's made, and when it only makes them more confident. It needs a team that can recruit participants, code free-text answers and run the study under ethics review. The protocol is open. If you'd like to run it, or improve it first, [I'd like to hear from you](mailto:will@emberwall.net?subject=Study%201%20protocol).
