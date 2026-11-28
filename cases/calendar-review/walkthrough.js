@@ -1,7 +1,7 @@
 /* Calendar-review walkthrough (web-v1.0) for emberwall.net.
    Plain JavaScript, no build step, no external dependencies.
    Case data is in cases.js, which must load first. */
-const COLLECTOR_URL = ""; // Paste deployed Apps Script /exec URL here
+const COLLECTOR_URL = "https://script.google.com/macros/s/AKfycbz24ZPFuICWFHipHBf4_k-QRW1BjYeNAWp28n6zLQ5YRunb6Bsx7K1foB71SYcF7nLFfA/exec"; // Apps Script /exec URL
 const MATERIAL_VERSION = "web-v1.0";
 
 (function () {
